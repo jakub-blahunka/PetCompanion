@@ -1,12 +1,15 @@
 package org.jaku8ka.petcompanion;
 
 import com.backendless.Backendless;
+import com.backendless.BackendlessUser;
 
 public class ApplicationClass extends android.app.Application {
 
     public static final String APPLICATION_ID = "D466B1D6-D66A-B3F3-FF92-E3D1822E8100";
     public static final String API_KEY = "A95C43F0-A8C1-0AB2-FF63-E4DC3E71D400";
     public static final String SERVER_URL = "https://api.backendless.com";
+
+    public static BackendlessUser user;
 
     @Override
     public void onCreate() {

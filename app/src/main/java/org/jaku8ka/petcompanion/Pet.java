@@ -6,20 +6,31 @@ public class Pet {
 
     private String name;
     private int type;
-    private Date dateOfBirth;
+    private String dateOfBirth;
     private int sex;
     private String species;
     private String color;
-    private Date parasites;
-    private Date vaccination;
-    private int nextOdc;
+    private String parasites;
+    private String vaccination;
+    private int nextPar;
     private int nextVac;
     private Date nextParasites;
+    private Date nextVaccination;
+    private String objectId;
+    private Date created;
+    private Date updated;
+    private String userEmail;
 
-    public Pet() {
+    public String getUserEmail() {
+        return userEmail;
+    }
+
+    public void setUserEmail(String userEmail) {
+        this.userEmail = userEmail;
     }
 
     public String getName() {
+
         return name;
     }
 
@@ -35,11 +46,11 @@ public class Pet {
         this.type = type;
     }
 
-    public Date getDateOfBirth() {
+    public String getDateOfBirth() {
         return dateOfBirth;
     }
 
-    public void setDateOfBirth(Date dateOfBirth) {
+    public void setDateOfBirth(String dateOfBirth) {
         this.dateOfBirth = dateOfBirth;
     }
 
@@ -67,28 +78,28 @@ public class Pet {
         this.color = color;
     }
 
-    public Date getParasites() {
+    public String getParasites() {
         return parasites;
     }
 
-    public void setParasites(Date parasites) {
+    public void setParasites(String parasites) {
         this.parasites = parasites;
     }
 
-    public Date getVaccination() {
+    public String getVaccination() {
         return vaccination;
     }
 
-    public void setVaccination(Date vaccination) {
+    public void setVaccination(String vaccination) {
         this.vaccination = vaccination;
     }
 
-    public int getNextOdc() {
-        return nextOdc;
+    public int getNextPar() {
+        return nextPar;
     }
 
-    public void setNextOdc(int nextOdc) {
-        this.nextOdc = nextOdc;
+    public void setNextPar(int nextPar) {
+        this.nextPar = nextPar;
     }
 
     public int getNextVac() {
@@ -115,5 +126,27 @@ public class Pet {
         this.nextVaccination = nextVaccination;
     }
 
-    private Date nextVaccination;
+    public String getObjectId() {
+        return objectId;
+    }
+
+    public void setObjectId(String objectId) {
+        this.objectId = objectId;
+    }
+
+    public Date getCreated() {
+        return created;
+    }
+
+    public void setCreated(Date created) {
+        this.created = created;
+    }
+
+    public Date getUpdated() {
+        return updated;
+    }
+
+    public void setUpdated(Date updated) {
+        this.updated = updated;
+    }
 }

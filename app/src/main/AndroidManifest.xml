@@ -21,7 +21,13 @@
             </intent-filter>
         </activity>
         <activity android:name=".Register" />
-        <activity android:name=".NewPet" />
+        <activity android:name=".NewPet"
+            android:label="Pet information"
+            android:parentActivityName=".MainActivity">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".MainActivity" />
+        </activity>
     </application>
 
 </manifest>
