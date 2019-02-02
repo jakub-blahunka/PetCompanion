@@ -195,6 +195,7 @@ public class NewPet extends AppCompatActivity {
         int vacLoop = vacSpinner;
 
         DateFormat dateFormat = new SimpleDateFormat("dd.MM.yyyy", Locale.getDefault());
+        String dateParString = null;
         Date datePar = null;
         try {
             datePar = dateFormat.parse(parDate);
@@ -214,10 +215,11 @@ public class NewPet extends AppCompatActivity {
                 myMonthValue = 0;
         }
         datePar.setMonth(datePar.getMonth() + myMonthValue);
+        dateParString = dateFormat.format(datePar);
         } catch (ParseException e) {
             e.printStackTrace();
         }
-
+        String dateVacString = null;
         Date dateVac = null;
         try {
             dateVac = dateFormat.parse(vacDate);
@@ -237,6 +239,7 @@ public class NewPet extends AppCompatActivity {
                     myMonthValue = 0;
             }
             dateVac.setMonth(dateVac.getMonth() + myMonthValue);
+            dateVacString = dateFormat.format(dateVac);
         } catch (ParseException e) {
             e.printStackTrace();
         }
@@ -256,6 +259,8 @@ public class NewPet extends AppCompatActivity {
         pet.setUserEmail(ApplicationClass.user.getEmail());
         pet.setNextParasites(datePar);
         pet.setNextVaccination(dateVac);
+        pet.setNextParasitesString(dateParString);
+        pet.setNextVaccinationString(dateVacString);
 
 
         showProgress(true);

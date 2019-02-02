@@ -9,6 +9,9 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.Button;
+import android.widget.ImageView;
+import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -16,6 +19,9 @@ import com.backendless.Backendless;
 import com.backendless.BackendlessUser;
 import com.backendless.async.callback.AsyncCallback;
 import com.backendless.exceptions.BackendlessFault;
+import com.backendless.persistence.DataQueryBuilder;
+
+import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -23,15 +29,81 @@ public class MainActivity extends AppCompatActivity {
     private View mLoginFormView;
     private TextView tvLoad;
 
+    PetsAdapter adapter;
+    ListView lvList;
+    ImageView ivInfo, ivEdit, ivDelete;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        initViews();
+
+        String whereClause = "userEmail = '" + ApplicationClass.user.getEmail() + "'";
+
+        DataQueryBuilder queryBuilder = DataQueryBuilder.create();
+        queryBuilder.setWhereClause(whereClause);
+        queryBuilder.setGroupBy("name");
+
+        showProgress(true);
+        tvLoad.setText("Getting all pets...please wait...");
+
+        Backendless.Persistence.of(Pet.class).find(queryBuilder, new AsyncCallback<List<Pet>>() {
+            @Override
+            public void handleResponse(List<Pet> response) {
+
+                ApplicationClass.pets = response;
+                adapter = new PetsAdapter(MainActivity.this, ApplicationClass.pets);
+                lvList.setAdapter(adapter);
+                showProgress(false);
+            }
+
+            @Override
+            public void handleFault(BackendlessFault fault) {
+
+                Toast.makeText(MainActivity.this, "Error: " + fault.getMessage(), Toast.LENGTH_SHORT).show();
+                showProgress(false);
+            }
+        });
+    }
+
+    private void initViews() {
         mLoginFormView = findViewById(R.id.login_form);
         mProgressView = findViewById(R.id.login_progress);
         tvLoad = findViewById(R.id.tvLoad);
+
+        lvList = findViewById(R.id.lvList);
+
+        ivInfo = findViewById(R.id.ivInfo);
+        ivEdit = findViewById(R.id.ivEdit);
+        ivDelete = findViewById(R.id.ivDelete);
+
+        ivInfo.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                startActivity(new Intent(MainActivity.this, PetInfo.class));
+
+            }
+        });
+
+        ivEdit.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                startActivity(new Intent(MainActivity.this, NewPet.class));
+
+            }
+        });
+
+        ivDelete.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+            }
+        });
     }
 
     @Override

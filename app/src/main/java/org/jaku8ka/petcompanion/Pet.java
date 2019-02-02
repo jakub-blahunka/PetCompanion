@@ -16,6 +16,25 @@ public class Pet {
     private int nextVac;
     private Date nextParasites;
     private Date nextVaccination;
+    private String nextParasitesString;
+    private String nextVaccinationString;
+
+    public String getNextParasitesString() {
+        return nextParasitesString;
+    }
+
+    public void setNextParasitesString(String nextParasitesString) {
+        this.nextParasitesString = nextParasitesString;
+    }
+
+    public String getNextVaccinationString() {
+        return nextVaccinationString;
+    }
+
+    public void setNextVaccinationString(String nextVaccinationString) {
+        this.nextVaccinationString = nextVaccinationString;
+    }
+
     private String objectId;
     private Date created;
     private Date updated;
