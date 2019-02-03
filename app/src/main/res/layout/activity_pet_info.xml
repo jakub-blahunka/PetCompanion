@@ -43,10 +43,11 @@
 
             <FrameLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content">
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp">
 
                 <ImageView
-                    android:id="@+id/iv_pet"
+                    android:id="@+id/ivPet"
                     android:layout_width="150dp"
                     android:layout_height="150dp"
                     android:layout_gravity="top|start"
@@ -71,8 +72,8 @@
                     android:textColor="@color/colorText"
                     android:textSize="24sp"
                     android:textStyle="bold"
-                    app:layout_constraintStart_toStartOf="@+id/iv_pet"
-                    app:layout_constraintTop_toBottomOf="@+id/iv_pet"
+                    app:layout_constraintStart_toStartOf="@+id/ivPet"
+                    app:layout_constraintTop_toBottomOf="@+id/ivPet"
                     tools:text="Name" />
 
                 <LinearLayout
@@ -131,7 +132,7 @@
                     android:layout_marginStart="8dp"
                     android:layout_weight="1"
                     android:gravity="start"
-                    android:text="Parasites"
+                    android:text="Last parasites"
                     android:textColor="@color/colorPrimaryDark" />
 
                 <TextView
@@ -202,7 +203,7 @@
                     android:layout_marginStart="8dp"
                     android:layout_weight="1"
                     android:gravity="start"
-                    android:text="Vaccination"
+                    android:text="Last vaccination"
                     android:textColor="@color/colorPrimaryDark" />
 
                 <TextView

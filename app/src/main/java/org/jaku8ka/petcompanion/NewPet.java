@@ -47,6 +47,22 @@ public class NewPet extends AppCompatActivity {
         setContentView(R.layout.activity_new_pet);
 
         initViews();
+        populateUI();
+    }
+
+    private void populateUI() {
+        if (MainActivity.POSITION != 9999) {
+            etName.setText(ApplicationClass.pets.get(MainActivity.POSITION).getName());
+            sPet.setSelection(ApplicationClass.pets.get(MainActivity.POSITION).getType());
+            tvDateBirth.setText(ApplicationClass.pets.get(MainActivity.POSITION).getDateOfBirth());
+            sSex.setSelection(ApplicationClass.pets.get(MainActivity.POSITION).getSex());
+            etSpecies.setText(ApplicationClass.pets.get(MainActivity.POSITION).getSpecies());
+            etColor.setText(ApplicationClass.pets.get(MainActivity.POSITION).getColor());
+            tvDateParasites.setText(ApplicationClass.pets.get(MainActivity.POSITION).getParasites());
+            sParasites.setSelection(ApplicationClass.pets.get(MainActivity.POSITION).getNextPar());
+            tvDateVaccination.setText(ApplicationClass.pets.get(MainActivity.POSITION).getVaccination());
+            sVaccination.setSelection(ApplicationClass.pets.get(MainActivity.POSITION).getNextVac());
+        }
     }
 
     @Override
@@ -200,22 +216,22 @@ public class NewPet extends AppCompatActivity {
         try {
             datePar = dateFormat.parse(parDate);
 
-        int myMonthValue;
-        switch (parLoop) {
-            case 0:
-                myMonthValue = 1;
-                break;
-            case 1:
-                myMonthValue = 3;
-                break;
-            case 2:
-                myMonthValue = 6;
-                break;
-            default:
-                myMonthValue = 0;
-        }
-        datePar.setMonth(datePar.getMonth() + myMonthValue);
-        dateParString = dateFormat.format(datePar);
+            int myMonthValue;
+            switch (parLoop) {
+                case 0:
+                    myMonthValue = 1;
+                    break;
+                case 1:
+                    myMonthValue = 3;
+                    break;
+                case 2:
+                    myMonthValue = 6;
+                    break;
+                default:
+                    myMonthValue = 0;
+            }
+            datePar.setMonth(datePar.getMonth() + myMonthValue);
+            dateParString = dateFormat.format(datePar);
         } catch (ParseException e) {
             e.printStackTrace();
         }
@@ -244,45 +260,82 @@ public class NewPet extends AppCompatActivity {
             e.printStackTrace();
         }
 
-        Pet pet = new Pet();
-
-        pet.setName(name);
-        pet.setType(petType);
-        pet.setDateOfBirth(birth);
-        pet.setSex(sex);
-        pet.setSpecies(species);
-        pet.setColor(color);
-        pet.setParasites(parDate);
-        pet.setNextPar(parLoop);
-        pet.setVaccination(vacDate);
-        pet.setNextVac(vacLoop);
-        pet.setUserEmail(ApplicationClass.user.getEmail());
-        pet.setNextParasites(datePar);
-        pet.setNextVaccination(dateVac);
-        pet.setNextParasitesString(dateParString);
-        pet.setNextVaccinationString(dateVacString);
-
-
         showProgress(true);
-        tvLoad.setText("Creating new pet...please wait...");
+        if (MainActivity.POSITION == 9999) {
+            tvLoad.setText("Saving pet...please wait...");
 
-        Backendless.Persistence.save(pet, new AsyncCallback<Pet>() {
-            @Override
-            public void handleResponse(Pet response) {
+            Pet pet = new Pet();
 
-                Toast.makeText(NewPet.this, "New pet saved successfully!", Toast.LENGTH_SHORT).show();
-                showProgress(false);
-                startActivity(new Intent(NewPet.this, MainActivity.class));
-                NewPet.this.finish();
-            }
+            pet.setName(name);
+            pet.setType(petType);
+            pet.setDateOfBirth(birth);
+            pet.setSex(sex);
+            pet.setSpecies(species);
+            pet.setColor(color);
+            pet.setParasites(parDate);
+            pet.setNextPar(parLoop);
+            pet.setVaccination(vacDate);
+            pet.setNextVac(vacLoop);
+            pet.setUserEmail(ApplicationClass.user.getEmail());
+            pet.setNextParasites(datePar);
+            pet.setNextVaccination(dateVac);
+            pet.setNextParasitesString(dateParString);
+            pet.setNextVaccinationString(dateVacString);
 
-            @Override
-            public void handleFault(BackendlessFault fault) {
+            Backendless.Persistence.save(pet, new AsyncCallback<Pet>() {
+                @Override
+                public void handleResponse(Pet response) {
 
-                Toast.makeText(NewPet.this, "Error: " + fault.getMessage(), Toast.LENGTH_SHORT).show();
-                showProgress(false);
-            }
-        });
+                    Toast.makeText(NewPet.this, "Pet saved successfully!", Toast.LENGTH_SHORT).show();
+                    showProgress(false);
+                    startActivity(new Intent(NewPet.this, MainActivity.class));
+                    NewPet.this.finish();
+                }
+
+                @Override
+                public void handleFault(BackendlessFault fault) {
+
+                    Toast.makeText(NewPet.this, "Error: " + fault.getMessage(), Toast.LENGTH_SHORT).show();
+                    showProgress(false);
+                }
+            });
+        } else {
+            tvLoad.setText("Updating pet...please wait...");
+
+            ApplicationClass.pets.get(MainActivity.POSITION).setName(etName.getText().toString().trim());
+            ApplicationClass.pets.get(MainActivity.POSITION).setType(petType);
+            ApplicationClass.pets.get(MainActivity.POSITION).setDateOfBirth(tvDateBirth.getText().toString().trim());
+            ApplicationClass.pets.get(MainActivity.POSITION).setSex(sex);
+            ApplicationClass.pets.get(MainActivity.POSITION).setSpecies(etSpecies.getText().toString().trim());
+            ApplicationClass.pets.get(MainActivity.POSITION).setColor(etColor.getText().toString().trim());
+            ApplicationClass.pets.get(MainActivity.POSITION).setParasites(tvDateParasites.getText().toString().trim());
+            ApplicationClass.pets.get(MainActivity.POSITION).setNextPar(parLoop);
+            ApplicationClass.pets.get(MainActivity.POSITION).setVaccination(tvDateVaccination.getText().toString().trim());
+            ApplicationClass.pets.get(MainActivity.POSITION).setNextVac(vacLoop);
+            ApplicationClass.pets.get(MainActivity.POSITION).setUserEmail(ApplicationClass.user.getEmail());
+            ApplicationClass.pets.get(MainActivity.POSITION).setNextParasites(datePar);
+            ApplicationClass.pets.get(MainActivity.POSITION).setNextVaccination(dateVac);
+            ApplicationClass.pets.get(MainActivity.POSITION).setNextParasitesString(dateParString);
+            ApplicationClass.pets.get(MainActivity.POSITION).setNextVaccinationString(dateVacString);
+
+            Backendless.Persistence.save(ApplicationClass.pets.get(MainActivity.POSITION), new AsyncCallback<Pet>() {
+                @Override
+                public void handleResponse(Pet response) {
+
+                    Toast.makeText(NewPet.this, "Pet updated successfully!", Toast.LENGTH_SHORT).show();
+                    showProgress(false);
+                    startActivity(new Intent(NewPet.this, MainActivity.class));
+                    NewPet.this.finish();
+                }
+
+                @Override
+                public void handleFault(BackendlessFault fault) {
+
+                    Toast.makeText(NewPet.this, "Error: " + fault.getMessage(), Toast.LENGTH_SHORT).show();
+                    showProgress(false);
+                }
+            });
+        }
 
     }
 

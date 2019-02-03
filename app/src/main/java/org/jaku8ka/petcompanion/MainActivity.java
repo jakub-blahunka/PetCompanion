@@ -2,13 +2,17 @@ package org.jaku8ka.petcompanion;
 
 import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
+import android.content.DialogInterface;
 import android.content.Intent;
+import android.graphics.Color;
 import android.support.v7.app.ActionBar;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.ListView;
@@ -28,6 +32,8 @@ public class MainActivity extends AppCompatActivity {
     private View mProgressView;
     private View mLoginFormView;
     private TextView tvLoad;
+
+    public static int POSITION = 9999;
 
     PetsAdapter adapter;
     ListView lvList;
@@ -58,6 +64,7 @@ public class MainActivity extends AppCompatActivity {
                 adapter = new PetsAdapter(MainActivity.this, ApplicationClass.pets);
                 lvList.setAdapter(adapter);
                 showProgress(false);
+                POSITION = 9999;
             }
 
             @Override
@@ -84,7 +91,11 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
 
-                startActivity(new Intent(MainActivity.this, PetInfo.class));
+                if (POSITION == 9999) {
+                    Toast.makeText(MainActivity.this, "First choose pet to get closer information!", Toast.LENGTH_SHORT).show();
+                } else {
+                    startActivity(new Intent(MainActivity.this, PetInfo.class));
+                }
 
             }
         });
@@ -93,8 +104,11 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
 
-                startActivity(new Intent(MainActivity.this, NewPet.class));
-
+                if (POSITION == 9999) {
+                    Toast.makeText(MainActivity.this, "First choose pet to edit!", Toast.LENGTH_SHORT).show();
+                } else {
+                    startActivity(new Intent(MainActivity.this, NewPet.class));
+                }
             }
         });
 
@@ -102,6 +116,63 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
 
+                if (POSITION == 9999) {
+                    Toast.makeText(MainActivity.this, "First choose pet to delete!", Toast.LENGTH_SHORT).show();
+                } else {
+                    final AlertDialog.Builder dialog = new AlertDialog.Builder(MainActivity.this);
+                    dialog.setMessage("Are you sure you want to delete this pet?");
+
+                    dialog.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialogInterface, int i) {
+                            showProgress(true);
+                            tvLoad.setText("Deleting pet...please wait...");
+
+                            Backendless.Persistence.of(Pet.class).remove(ApplicationClass.pets.get(POSITION), new AsyncCallback<Long>() {
+                                @Override
+                                public void handleResponse(Long response) {
+                                    ApplicationClass.pets.remove(POSITION);
+                                    Toast.makeText(MainActivity.this, "Pet successfully removed!", Toast.LENGTH_SHORT).show();
+                                    setResult(RESULT_OK);
+                                    adapter.notifyDataSetChanged();
+                                    showProgress(false);
+                                    POSITION = 9999;
+                                }
+
+                                @Override
+                                public void handleFault(BackendlessFault fault) {
+
+                                    Toast.makeText(MainActivity.this, "Error: " +fault.getMessage(), Toast.LENGTH_SHORT).show();
+                                    showProgress(false);
+                                }
+                            });
+                        }
+                    });
+
+                    dialog.setNegativeButton("No", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialogInterface, int i) {
+
+                        }
+                    });
+                    dialog.show();
+                }
+
+            }
+        });
+
+        lvList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int position, long l) {
+                POSITION = position;
+
+                for (int i = 0; i < lvList.getChildCount(); i++) {
+                    if(position == i ){
+                        lvList.getChildAt(i).setBackgroundColor(getResources().getColor(R.color.colorPrimaryDark));;
+                    }else{
+                        lvList.getChildAt(i).setBackgroundColor(Color.TRANSPARENT);
+                    }
+                }
             }
         });
     }
