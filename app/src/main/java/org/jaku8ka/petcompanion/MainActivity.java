@@ -12,6 +12,7 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.AbsListView;
 import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.ImageView;
@@ -166,15 +167,10 @@ public class MainActivity extends AppCompatActivity {
             public void onItemClick(AdapterView<?> adapterView, View view, int position, long l) {
                 POSITION = position;
 
-                for (int i = 0; i < lvList.getChildCount(); i++) {
-                    if(position == i ){
-                        lvList.getChildAt(i).setBackgroundColor(getResources().getColor(R.color.colorPrimaryDark));;
-                    }else{
-                        lvList.getChildAt(i).setBackgroundColor(Color.TRANSPARENT);
-                    }
-                }
+                lvList.getChildAt(position).setSelected(true);
             }
         });
+
     }
 
     @Override
@@ -189,6 +185,7 @@ public class MainActivity extends AppCompatActivity {
 
         switch (item.getItemId()) {
             case R.id.action_add:
+                POSITION = 9999;
                 startActivity(new Intent(MainActivity.this, NewPet.class));
                 return true;
             case R.id.action_info:
