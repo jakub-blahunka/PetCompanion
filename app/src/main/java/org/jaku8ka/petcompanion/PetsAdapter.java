@@ -1,7 +1,6 @@
 package org.jaku8ka.petcompanion;
 
 import android.content.Context;
-import android.graphics.Color;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.content.ContextCompat;
@@ -28,35 +27,60 @@ public class PetsAdapter extends ArrayAdapter<Pet> {
 
     @NonNull
     @Override
-    public View getView(int position, @Nullable View convertView, @NonNull ViewGroup parent) {
+    public View getView(final int position, @Nullable View convertView, @NonNull ViewGroup parent) {
 
-        LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+        View view = convertView;
+        ViewHolder holder;
 
-        convertView = inflater.inflate(R.layout.row_list_layout, parent, false);
+        if(view == null) {
+            LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+            view = inflater.inflate(R.layout.row_list_layout, parent, false);
 
-        TextView tvName = convertView.findViewById(R.id.tvName);
-        ImageView ivAvatar = convertView.findViewById(R.id.ivAvatar);
+            holder = new ViewHolder();
 
-        tvName.setText(pets.get(position).getName());
+            holder.name = view.findViewById(R.id.tvName);
+            holder.pet = view.findViewById(R.id.ivAvatar);
+
+            view.setTag(holder);
+        } else {
+            holder = (ViewHolder) view.getTag();
+        }
+
+        holder.name.setText(pets.get(position).getName());
 
         switch (pets.get(position).getType()) {
             case 0:
-                ivAvatar.setBackground(ContextCompat.getDrawable(context, R.drawable.cat));
+                holder.pet.setBackground(ContextCompat.getDrawable(context, R.drawable.cat));
                 break;
 
             case 1:
-                ivAvatar.setBackground(ContextCompat.getDrawable(context, R.drawable.dog));
+                holder.pet.setBackground(ContextCompat.getDrawable(context, R.drawable.dog));
                 break;
 
             case 2:
-                ivAvatar.setBackground(ContextCompat.getDrawable(context, R.drawable.rabbit));
+                holder.pet.setBackground(ContextCompat.getDrawable(context, R.drawable.rabbit));
                 break;
 
             default:
                 break;
         }
 
-        return convertView;
+        if(pets.get(position).getSelected()){
+            view.setBackgroundResource(R.drawable.selected);
+        } else {
+            view.setBackgroundResource(R.drawable.pressed);
+        }
+
+        return view;
     }
 
+    private static class ViewHolder{
+        public ImageView pet;
+        public TextView name;
+    }
+
+    @Override
+    public int getCount() {
+        return super.getCount();
+    }
 }

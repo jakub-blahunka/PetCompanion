@@ -165,9 +165,12 @@ public class MainActivity extends AppCompatActivity {
         lvList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int position, long l) {
-                POSITION = position;
-
-                lvList.getChildAt(position).setSelected(true);
+                MainActivity.POSITION = position;
+                for(int i = 0; i < ApplicationClass.pets.size(); i++) {
+                    ApplicationClass.pets.get(i).setSelected(false);
+                }
+                ApplicationClass.pets.get(position).setSelected(true);
+                adapter.notifyDataSetChanged();
             }
         });
 

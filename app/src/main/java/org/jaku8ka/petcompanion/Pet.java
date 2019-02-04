@@ -18,6 +18,15 @@ public class Pet {
     private Date nextVaccination;
     private String nextParasitesString;
     private String nextVaccinationString;
+    private boolean selected;
+
+    public boolean getSelected(){
+        return selected;
+    }
+
+    public void setSelected(boolean selected) {
+        this.selected = selected;
+    }
 
     public String getNextParasitesString() {
         return nextParasitesString;
