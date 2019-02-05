@@ -111,6 +111,7 @@ public class MainActivity extends AppCompatActivity {
                     Toast.makeText(MainActivity.this, "First choose pet to edit!", Toast.LENGTH_SHORT).show();
                 } else {
                     startActivity(new Intent(MainActivity.this, NewPet.class));
+                    adapter.notifyDataSetChanged();
                 }
             }
         });

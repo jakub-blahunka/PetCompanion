@@ -290,6 +290,7 @@ public class NewPet extends AppCompatActivity {
             pet.setNextVaccination(dateVac);
             pet.setNextParasitesString(dateParString);
             pet.setNextVaccinationString(dateVacString);
+            pet.setSelected(false);
 
             Backendless.Persistence.save(pet, new AsyncCallback<Pet>() {
                 @Override
@@ -327,6 +328,7 @@ public class NewPet extends AppCompatActivity {
             ApplicationClass.pets.get(MainActivity.POSITION).setNextVaccination(dateVac);
             ApplicationClass.pets.get(MainActivity.POSITION).setNextParasitesString(dateParString);
             ApplicationClass.pets.get(MainActivity.POSITION).setNextVaccinationString(dateVacString);
+            ApplicationClass.pets.get(MainActivity.POSITION).setSelected(false);
 
             Backendless.Persistence.save(ApplicationClass.pets.get(MainActivity.POSITION), new AsyncCallback<Pet>() {
                 @Override
