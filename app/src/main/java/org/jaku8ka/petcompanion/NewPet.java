@@ -4,6 +4,7 @@ import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
 import android.content.Intent;
 import android.support.v4.app.DialogFragment;
+import android.support.v4.app.FragmentManager;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -14,6 +15,7 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.LinearLayout;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -30,9 +32,10 @@ import java.util.Locale;
 
 public class NewPet extends AppCompatActivity {
 
-    private View mProgressView;
-    private View mLoginFormView;
-    private TextView tvLoad;
+    ISetTextInFragment myText;
+    FragmentManager fragmentManager;
+
+    LinearLayout ll1, ll2;
 
     TextView tvDateBirth, tvDateParasites, tvDateVaccination;
     EditText etName, etSpecies, etColor;
@@ -94,9 +97,12 @@ public class NewPet extends AppCompatActivity {
 
     private void initViews() {
 
-        mLoginFormView = findViewById(R.id.login_form);
-        mProgressView = findViewById(R.id.login_progress);
-        tvLoad = findViewById(R.id.tvLoad);
+        fragmentManager = getSupportFragmentManager();
+        fragmentManager.beginTransaction().hide(fragmentManager.findFragmentById(R.id.fragment_newPet)).commit();
+        myText = (ISetTextInFragment) fragmentManager.findFragmentById(R.id.fragment_newPet);
+
+        ll1 = findViewById(R.id.ll1);
+        ll2 = findViewById(R.id.ll2);
 
         tvDateBirth = findViewById(R.id.tvDateBirth);
         tvDateParasites = findViewById(R.id.tvDateParasites);
@@ -260,9 +266,12 @@ public class NewPet extends AppCompatActivity {
             e.printStackTrace();
         }
 
-        showProgress(true);
+        ll1.setVisibility(View.GONE);
+        ll2.setVisibility(View.GONE);
+
+        fragmentManager.beginTransaction().show(fragmentManager.findFragmentById(R.id.fragment_newPet)).commit();
         if (MainActivity.POSITION == 9999) {
-            tvLoad.setText("Saving pet...please wait...");
+            myText.showText("Saving pet...please wait...");
 
             Pet pet = new Pet();
 
@@ -287,7 +296,6 @@ public class NewPet extends AppCompatActivity {
                 public void handleResponse(Pet response) {
 
                     Toast.makeText(NewPet.this, "Pet saved successfully!", Toast.LENGTH_SHORT).show();
-                    showProgress(false);
                     startActivity(new Intent(NewPet.this, MainActivity.class));
                     NewPet.this.finish();
                 }
@@ -296,11 +304,13 @@ public class NewPet extends AppCompatActivity {
                 public void handleFault(BackendlessFault fault) {
 
                     Toast.makeText(NewPet.this, "Error: " + fault.getMessage(), Toast.LENGTH_SHORT).show();
-                    showProgress(false);
+                    fragmentManager.beginTransaction().hide(fragmentManager.findFragmentById(R.id.fragment_newPet)).commit();
+                    ll1.setVisibility(View.VISIBLE);
+                    ll2.setVisibility(View.VISIBLE);
                 }
             });
         } else {
-            tvLoad.setText("Updating pet...please wait...");
+            myText.showText("Updating pet...please wait...");
 
             ApplicationClass.pets.get(MainActivity.POSITION).setName(etName.getText().toString().trim());
             ApplicationClass.pets.get(MainActivity.POSITION).setType(petType);
@@ -323,7 +333,6 @@ public class NewPet extends AppCompatActivity {
                 public void handleResponse(Pet response) {
 
                     Toast.makeText(NewPet.this, "Pet updated successfully!", Toast.LENGTH_SHORT).show();
-                    showProgress(false);
                     startActivity(new Intent(NewPet.this, MainActivity.class));
                     NewPet.this.finish();
                 }
@@ -332,43 +341,13 @@ public class NewPet extends AppCompatActivity {
                 public void handleFault(BackendlessFault fault) {
 
                     Toast.makeText(NewPet.this, "Error: " + fault.getMessage(), Toast.LENGTH_SHORT).show();
-                    showProgress(false);
+                    fragmentManager.beginTransaction().hide(fragmentManager.findFragmentById(R.id.fragment_newPet)).commit();
+                    ll1.setVisibility(View.VISIBLE);
+                    ll2.setVisibility(View.VISIBLE);
                 }
             });
         }
 
-    }
-
-    private void showProgress(final boolean show) {
-
-        int shortAnimTime = getResources().getInteger(android.R.integer.config_shortAnimTime);
-
-        mLoginFormView.setVisibility(show ? View.GONE : View.VISIBLE);
-        mLoginFormView.animate().setDuration(shortAnimTime).alpha(
-                show ? 0 : 1).setListener(new AnimatorListenerAdapter() {
-            @Override
-            public void onAnimationEnd(Animator animation) {
-                mLoginFormView.setVisibility(show ? View.GONE : View.VISIBLE);
-            }
-        });
-
-        mProgressView.setVisibility(show ? View.VISIBLE : View.GONE);
-        mProgressView.animate().setDuration(shortAnimTime).alpha(
-                show ? 1 : 0).setListener(new AnimatorListenerAdapter() {
-            @Override
-            public void onAnimationEnd(Animator animation) {
-                mProgressView.setVisibility(show ? View.VISIBLE : View.GONE);
-            }
-        });
-
-        tvLoad.setVisibility(show ? View.VISIBLE : View.GONE);
-        tvLoad.animate().setDuration(shortAnimTime).alpha(
-                show ? 1 : 0).setListener(new AnimatorListenerAdapter() {
-            @Override
-            public void onAnimationEnd(Animator animation) {
-                tvLoad.setVisibility(show ? View.VISIBLE : View.GONE);
-            }
-        });
     }
 
     @Override

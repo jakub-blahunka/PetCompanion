@@ -1,432 +1,410 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/colorPrimaryLight"
-    android:orientation="vertical"
     tools:context=".NewPet">
 
-    <ProgressBar
-        android:id="@+id/login_progress"
-        style="?android:attr/progressBarStyleLarge"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center_horizontal"
-        android:layout_marginTop="200dp"
-        android:visibility="gone" />
-
-    <TextView
-        android:id="@+id/tvLoad"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="25dp"
-        android:clickable="true"
-        android:focusable="true"
-        android:gravity="center_horizontal"
-        android:text="Loading...please wait..."
-        android:textColor="@color/colorText"
-        android:textStyle="bold"
-        android:visibility="gone" />
-
-    <ScrollView
-        android:id="@+id/login_form"
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@color/colorPrimaryLight">
+        android:background="@color/colorDivider"
+        android:orientation="vertical">
+
+        <fragment
+            android:id="@+id/fragment_newPet"
+            android:name="org.jaku8ka.petcompanion.LoadingFragment"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            tools:layout="@layout/fragment_loading" />
 
         <LinearLayout
+            android:id="@+id/ll1"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@color/colorDivider"
-            android:orientation="vertical">
+            android:layout_marginBottom="8dp"
+            android:background="@drawable/rounded_corners"
+            android:orientation="vertical"
+            android:padding="8dp">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:padding="8dp"
+                android:textSize="25sp"
+                android:textStyle="bold"
+                tools:text="Pet description" />
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="8dp"
-                android:background="@drawable/rounded_corners"
-                android:orientation="vertical"
-                android:padding="8dp">
+                android:orientation="horizontal">
 
                 <TextView
-                    android:layout_width="match_parent"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:gravity="center"
-                    android:padding="8dp"
-                    android:textSize="25sp"
-                    android:textStyle="bold"
-                    tools:text="Pet description" />
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal">
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center_vertical|start"
-                        android:layout_margin="8dp"
-                        android:text="Name"
-                        android:textColor="@color/colorText"
-                        android:textSize="14sp" />
-
-                    <EditText
-                        android:id="@+id/etName"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center_vertical|end"
-                        android:layout_margin="8dp"
-                        android:background="@android:color/transparent"
-                        android:gravity="end"
-                        android:hint="Enter pet name"
-                        android:inputType="text"
-                        android:textColor="@color/colorTextSecondary"
-                        android:textSize="12sp" />
-
-                </LinearLayout>
-
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="1dp"
+                    android:layout_gravity="center_vertical|start"
                     android:layout_margin="8dp"
-                    android:background="@color/colorDivider" />
+                    android:text="Name"
+                    android:textColor="@color/colorText"
+                    android:textSize="14sp" />
 
-                <LinearLayout
+                <EditText
+                    android:id="@+id/etName"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:orientation="horizontal">
-
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center_vertical|start"
-                        android:layout_margin="8dp"
-                        android:text="Pet type"
-                        android:textColor="@color/colorText"
-                        android:textSize="14sp" />
-
-                    <Spinner
-                        android:id="@+id/sPet"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center_vertical|end"
-                        android:gravity="end"
-                        android:textAlignment="textEnd" />
-
-                </LinearLayout>
-
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="1dp"
+                    android:layout_gravity="center_vertical|end"
                     android:layout_margin="8dp"
-                    android:background="@color/colorDivider" />
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal">
-
-                    <TextView
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center_vertical|start"
-                        android:layout_margin="8dp"
-                        android:layout_weight="4"
-                        android:text="Date of birth"
-                        android:textColor="@color/colorText"
-                        android:textSize="14sp" />
-
-                    <TextView
-                        android:id="@+id/tvDateBirth"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center_vertical|end"
-                        android:layout_margin="8dp"
-                        android:layout_weight="4"
-                        android:clickable="true"
-                        android:gravity="end"
-                        android:hint="Choose date"
-                        android:longClickable="false"
-                        android:textColor="@color/colorTextSecondary"
-                        android:textSize="12sp" />
-
-                    <Button
-                        android:id="@+id/add_pet_birth"
-                        android:layout_width="0dp"
-                        android:layout_height="match_parent"
-                        android:layout_gravity="center_vertical|end"
-                        android:layout_marginEnd="8dp"
-                        android:layout_weight="1"
-                        android:background="@drawable/date"
-                        android:gravity="end" />
-                </LinearLayout>
-
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="1dp"
-                    android:layout_margin="8dp"
-                    android:background="@color/colorDivider" />
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal">
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center_vertical|start"
-                        android:layout_margin="8dp"
-                        android:text="Sex"
-                        android:textColor="@color/colorText"
-                        android:textSize="14sp" />
-
-                    <Spinner
-                        android:id="@+id/sSex"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center_vertical|end"
-                        android:gravity="end"
-                        android:textAlignment="textEnd" />
-
-                </LinearLayout>
-
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="1dp"
-                    android:layout_margin="8dp"
-                    android:background="@color/colorDivider" />
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal">
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center_vertical|start"
-                        android:layout_margin="8dp"
-                        android:text="Species"
-                        android:textColor="@color/colorText"
-                        android:textSize="14sp" />
-
-                    <EditText
-                        android:id="@+id/etSpecies"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center_vertical|end"
-                        android:layout_margin="8dp"
-                        android:autofillHints=""
-                        android:background="@android:color/transparent"
-                        android:gravity="end"
-                        android:hint="Enter species"
-                        android:inputType="text"
-                        android:textColor="@color/colorTextSecondary"
-                        android:textSize="12sp" />
-
-                </LinearLayout>
-
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="1dp"
-                    android:layout_margin="8dp"
-                    android:background="@color/colorDivider" />
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal">
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center_vertical|start"
-                        android:layout_margin="8dp"
-                        android:text="Color of pet"
-                        android:textColor="@color/colorText"
-                        android:textSize="14sp" />
-
-                    <EditText
-                        android:id="@+id/etColor"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center_vertical|end"
-                        android:layout_margin="8dp"
-                        android:autofillHints=""
-                        android:background="@android:color/transparent"
-                        android:gravity="end"
-                        android:hint="Enter color of pet"
-                        android:inputType="text"
-                        android:textColor="@color/colorTextSecondary"
-                        android:textSize="12sp" />
-
-                </LinearLayout>
-
+                    android:background="@android:color/transparent"
+                    android:gravity="end"
+                    android:hint="Enter pet name"
+                    android:inputType="text"
+                    android:textColor="@color/colorTextSecondary"
+                    android:textSize="12sp" />
 
             </LinearLayout>
 
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_margin="8dp"
+                android:background="@color/colorDivider" />
+
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="@drawable/rounded_corners"
-                android:orientation="vertical"
-                android:padding="8dp">
+                android:orientation="horizontal">
 
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal">
-
-                    <TextView
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center_vertical|start"
-                        android:layout_margin="8dp"
-                        android:layout_weight="4"
-                        android:text="Date of parasites"
-                        android:textColor="@color/colorText"
-                        android:textSize="14sp" />
-
-                    <TextView
-                        android:id="@+id/tvDateParasites"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center_vertical|end"
-                        android:layout_margin="8dp"
-                        android:layout_weight="4"
-                        android:clickable="true"
-                        android:gravity="end"
-                        android:hint="Choose date"
-                        android:longClickable="false"
-                        android:textColor="@color/colorTextSecondary"
-                        android:textSize="12sp" />
-
-                    <Button
-                        android:id="@+id/add_pet_par"
-                        android:layout_width="0dp"
-                        android:layout_height="match_parent"
-                        android:layout_gravity="center_vertical|end"
-                        android:layout_marginEnd="8dp"
-                        android:layout_weight="1"
-                        android:background="@drawable/date"
-                        android:gravity="end" />
-                </LinearLayout>
 
                 <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="1dp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical|start"
                     android:layout_margin="8dp"
-                    android:background="@color/colorDivider" />
+                    android:text="Pet type"
+                    android:textColor="@color/colorText"
+                    android:textSize="14sp" />
 
-                <LinearLayout
+                <Spinner
+                    android:id="@+id/sPet"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:orientation="horizontal">
+                    android:layout_gravity="center_vertical|end"
+                    android:gravity="end"
+                    android:textAlignment="textEnd" />
 
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center_vertical|start"
-                        android:layout_margin="8dp"
-                        android:text="Parasites in"
-                        android:textColor="@color/colorText"
-                        android:textSize="14sp" />
+            </LinearLayout>
 
-                    <Spinner
-                        android:id="@+id/sParasites"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center_vertical|end"
-                        android:gravity="end"
-                        android:textAlignment="textEnd" />
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_margin="8dp"
+                android:background="@color/colorDivider" />
 
-                </LinearLayout>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
 
                 <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="1dp"
-                    android:layout_margin="8dp"
-                    android:background="@color/colorDivider" />
-
-                <LinearLayout
-                    android:layout_width="match_parent"
+                    android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:orientation="horizontal">
-
-                    <TextView
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center_vertical|start"
-                        android:layout_margin="8dp"
-                        android:layout_weight="4"
-                        android:text="Date of vaccination"
-                        android:textColor="@color/colorText"
-                        android:textSize="14sp" />
-
-                    <TextView
-                        android:id="@+id/tvDateVaccination"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center_vertical|end"
-                        android:layout_margin="8dp"
-                        android:layout_weight="4"
-                        android:clickable="true"
-                        android:gravity="end"
-                        android:hint="Choose date"
-                        android:longClickable="false"
-                        android:textColor="@color/colorTextSecondary"
-                        android:textSize="12sp" />
-
-                    <Button
-                        android:id="@+id/add_pet_vac"
-                        android:layout_width="0dp"
-                        android:layout_height="match_parent"
-                        android:layout_gravity="center_vertical|end"
-                        android:layout_marginEnd="8dp"
-                        android:layout_weight="1"
-                        android:background="@drawable/date"
-                        android:gravity="end" />
-                </LinearLayout>
+                    android:layout_gravity="center_vertical|start"
+                    android:layout_margin="8dp"
+                    android:layout_weight="4"
+                    android:text="Date of birth"
+                    android:textColor="@color/colorText"
+                    android:textSize="14sp" />
 
                 <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="1dp"
+                    android:id="@+id/tvDateBirth"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical|end"
                     android:layout_margin="8dp"
-                    android:background="@color/colorDivider" />
+                    android:layout_weight="4"
+                    android:clickable="true"
+                    android:gravity="end"
+                    android:hint="Choose date"
+                    android:longClickable="false"
+                    android:textColor="@color/colorTextSecondary"
+                    android:textSize="12sp" />
 
-                <LinearLayout
+                <Button
+                    android:id="@+id/add_pet_birth"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_gravity="center_vertical|end"
+                    android:layout_marginEnd="8dp"
+                    android:layout_weight="1"
+                    android:background="@drawable/date"
+                    android:gravity="end" />
+            </LinearLayout>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_margin="8dp"
+                android:background="@color/colorDivider" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical|start"
+                    android:layout_margin="8dp"
+                    android:text="Sex"
+                    android:textColor="@color/colorText"
+                    android:textSize="14sp" />
+
+                <Spinner
+                    android:id="@+id/sSex"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:orientation="horizontal">
+                    android:layout_gravity="center_vertical|end"
+                    android:gravity="end"
+                    android:textAlignment="textEnd" />
 
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center_vertical|start"
-                        android:layout_margin="8dp"
-                        android:text="Vaccinate in"
-                        android:textColor="@color/colorText"
-                        android:textSize="14sp" />
+            </LinearLayout>
 
-                    <Spinner
-                        android:id="@+id/sVaccination"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center_vertical|end"
-                        android:gravity="end"
-                        android:textAlignment="textEnd" />
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_margin="8dp"
+                android:background="@color/colorDivider" />
 
-                </LinearLayout>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical|start"
+                    android:layout_margin="8dp"
+                    android:text="Species"
+                    android:textColor="@color/colorText"
+                    android:textSize="14sp" />
+
+                <EditText
+                    android:id="@+id/etSpecies"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical|end"
+                    android:layout_margin="8dp"
+                    android:autofillHints=""
+                    android:background="@android:color/transparent"
+                    android:gravity="end"
+                    android:hint="Enter species"
+                    android:inputType="text"
+                    android:textColor="@color/colorTextSecondary"
+                    android:textSize="12sp" />
+
+            </LinearLayout>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_margin="8dp"
+                android:background="@color/colorDivider" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical|start"
+                    android:layout_margin="8dp"
+                    android:text="Color of pet"
+                    android:textColor="@color/colorText"
+                    android:textSize="14sp" />
+
+                <EditText
+                    android:id="@+id/etColor"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical|end"
+                    android:layout_margin="8dp"
+                    android:autofillHints=""
+                    android:background="@android:color/transparent"
+                    android:gravity="end"
+                    android:hint="Enter color of pet"
+                    android:inputType="text"
+                    android:textColor="@color/colorTextSecondary"
+                    android:textSize="12sp" />
+
+            </LinearLayout>
+
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/ll2"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/rounded_corners"
+            android:orientation="vertical"
+            android:padding="8dp">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical|start"
+                    android:layout_margin="8dp"
+                    android:layout_weight="4"
+                    android:text="Date of parasites"
+                    android:textColor="@color/colorText"
+                    android:textSize="14sp" />
+
+                <TextView
+                    android:id="@+id/tvDateParasites"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical|end"
+                    android:layout_margin="8dp"
+                    android:layout_weight="4"
+                    android:clickable="true"
+                    android:gravity="end"
+                    android:hint="Choose date"
+                    android:longClickable="false"
+                    android:textColor="@color/colorTextSecondary"
+                    android:textSize="12sp" />
+
+                <Button
+                    android:id="@+id/add_pet_par"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_gravity="center_vertical|end"
+                    android:layout_marginEnd="8dp"
+                    android:layout_weight="1"
+                    android:background="@drawable/date"
+                    android:gravity="end" />
+            </LinearLayout>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_margin="8dp"
+                android:background="@color/colorDivider" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical|start"
+                    android:layout_margin="8dp"
+                    android:text="Parasites in"
+                    android:textColor="@color/colorText"
+                    android:textSize="14sp" />
+
+                <Spinner
+                    android:id="@+id/sParasites"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical|end"
+                    android:gravity="end"
+                    android:textAlignment="textEnd" />
+
+            </LinearLayout>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_margin="8dp"
+                android:background="@color/colorDivider" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical|start"
+                    android:layout_margin="8dp"
+                    android:layout_weight="4"
+                    android:text="Date of vaccination"
+                    android:textColor="@color/colorText"
+                    android:textSize="14sp" />
+
+                <TextView
+                    android:id="@+id/tvDateVaccination"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical|end"
+                    android:layout_margin="8dp"
+                    android:layout_weight="4"
+                    android:clickable="true"
+                    android:gravity="end"
+                    android:hint="Choose date"
+                    android:longClickable="false"
+                    android:textColor="@color/colorTextSecondary"
+                    android:textSize="12sp" />
+
+                <Button
+                    android:id="@+id/add_pet_vac"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_gravity="center_vertical|end"
+                    android:layout_marginEnd="8dp"
+                    android:layout_weight="1"
+                    android:background="@drawable/date"
+                    android:gravity="end" />
+            </LinearLayout>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_margin="8dp"
+                android:background="@color/colorDivider" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical|start"
+                    android:layout_margin="8dp"
+                    android:text="Vaccinate in"
+                    android:textColor="@color/colorText"
+                    android:textSize="14sp" />
+
+                <Spinner
+                    android:id="@+id/sVaccination"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical|end"
+                    android:gravity="end"
+                    android:textAlignment="textEnd" />
 
             </LinearLayout>
 
         </LinearLayout>
 
-    </ScrollView>
+    </LinearLayout>
 
-</LinearLayout>
+</ScrollView>

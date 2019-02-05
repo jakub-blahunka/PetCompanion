@@ -28,10 +28,6 @@ import java.util.StringTokenizer;
 
 public class PetInfo extends AppCompatActivity {
 
-    private View mProgressView;
-    private View mLoginFormView;
-    private TextView tvLoad;
-
     ImageView ivPet;
     TextView tv_name, age_normal, age_pet, tv_par, tv_next_par, tv_vac, tv_next_vac, tv_par_count, tv_vac_count;
     ProgressBar pb_vac, pb_par;
@@ -145,9 +141,6 @@ public class PetInfo extends AppCompatActivity {
     }
 
     private void initViews() {
-        mLoginFormView = findViewById(R.id.login_form);
-        mProgressView = findViewById(R.id.login_progress);
-        tvLoad = findViewById(R.id.tvLoad);
 
         ivPet = findViewById(R.id.ivPet);
         tv_name = findViewById(R.id.tv_name);
@@ -161,38 +154,6 @@ public class PetInfo extends AppCompatActivity {
         tv_vac_count = findViewById(R.id.tv_vac_count);
         pb_vac = findViewById(R.id.pb_vac);
         pb_par = findViewById(R.id.pb_par);
-    }
-
-    private void showProgress(final boolean show) {
-
-        int shortAnimTime = getResources().getInteger(android.R.integer.config_shortAnimTime);
-
-        mLoginFormView.setVisibility(show ? View.GONE : View.VISIBLE);
-        mLoginFormView.animate().setDuration(shortAnimTime).alpha(
-                show ? 0 : 1).setListener(new AnimatorListenerAdapter() {
-            @Override
-            public void onAnimationEnd(Animator animation) {
-                mLoginFormView.setVisibility(show ? View.GONE : View.VISIBLE);
-            }
-        });
-
-        mProgressView.setVisibility(show ? View.VISIBLE : View.GONE);
-        mProgressView.animate().setDuration(shortAnimTime).alpha(
-                show ? 1 : 0).setListener(new AnimatorListenerAdapter() {
-            @Override
-            public void onAnimationEnd(Animator animation) {
-                mProgressView.setVisibility(show ? View.VISIBLE : View.GONE);
-            }
-        });
-
-        tvLoad.setVisibility(show ? View.VISIBLE : View.GONE);
-        tvLoad.animate().setDuration(shortAnimTime).alpha(
-                show ? 1 : 0).setListener(new AnimatorListenerAdapter() {
-            @Override
-            public void onAnimationEnd(Animator animation) {
-                tvLoad.setVisibility(show ? View.VISIBLE : View.GONE);
-            }
-        });
     }
 
     @Override

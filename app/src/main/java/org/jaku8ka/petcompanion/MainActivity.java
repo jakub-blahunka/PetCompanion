@@ -5,6 +5,7 @@ import android.animation.AnimatorListenerAdapter;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Color;
+import android.support.v4.app.FragmentManager;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
@@ -30,9 +31,8 @@ import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
 
-    private View mProgressView;
-    private View mLoginFormView;
-    private TextView tvLoad;
+    ISetTextInFragment myText;
+    FragmentManager fragmentManager;
 
     public static int POSITION = 9999;
 
@@ -54,8 +54,8 @@ public class MainActivity extends AppCompatActivity {
         queryBuilder.setWhereClause(whereClause);
         queryBuilder.setGroupBy("name");
 
-        showProgress(true);
-        tvLoad.setText("Getting all pets...please wait...");
+        fragmentManager.beginTransaction().show(fragmentManager.findFragmentById(R.id.fragment_main)).commit();
+        myText.showText("Getting all pets...please wait...");
 
         Backendless.Persistence.of(Pet.class).find(queryBuilder, new AsyncCallback<List<Pet>>() {
             @Override
@@ -64,7 +64,8 @@ public class MainActivity extends AppCompatActivity {
                 ApplicationClass.pets = response;
                 adapter = new PetsAdapter(MainActivity.this, ApplicationClass.pets);
                 lvList.setAdapter(adapter);
-                showProgress(false);
+                fragmentManager.beginTransaction().hide(fragmentManager.findFragmentById(R.id.fragment_main)).commit();
+
                 POSITION = 9999;
             }
 
@@ -72,15 +73,16 @@ public class MainActivity extends AppCompatActivity {
             public void handleFault(BackendlessFault fault) {
 
                 Toast.makeText(MainActivity.this, "Error: " + fault.getMessage(), Toast.LENGTH_SHORT).show();
-                showProgress(false);
+                fragmentManager.beginTransaction().hide(fragmentManager.findFragmentById(R.id.fragment_main)).commit();
             }
         });
     }
 
     private void initViews() {
-        mLoginFormView = findViewById(R.id.login_form);
-        mProgressView = findViewById(R.id.login_progress);
-        tvLoad = findViewById(R.id.tvLoad);
+
+        fragmentManager = getSupportFragmentManager();
+        fragmentManager.beginTransaction().hide(fragmentManager.findFragmentById(R.id.fragment_main)).commit();
+        myText = (ISetTextInFragment) fragmentManager.findFragmentById(R.id.fragment_main);
 
         lvList = findViewById(R.id.lvList);
 
@@ -126,8 +128,8 @@ public class MainActivity extends AppCompatActivity {
                     dialog.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
                         @Override
                         public void onClick(DialogInterface dialogInterface, int i) {
-                            showProgress(true);
-                            tvLoad.setText("Deleting pet...please wait...");
+                            fragmentManager.beginTransaction().show(fragmentManager.findFragmentById(R.id.fragment_main)).commit();
+                            myText.showText("Deleting pet...please wait...");
 
                             Backendless.Persistence.of(Pet.class).remove(ApplicationClass.pets.get(POSITION), new AsyncCallback<Long>() {
                                 @Override
@@ -136,7 +138,7 @@ public class MainActivity extends AppCompatActivity {
                                     Toast.makeText(MainActivity.this, "Pet successfully removed!", Toast.LENGTH_SHORT).show();
                                     setResult(RESULT_OK);
                                     adapter.notifyDataSetChanged();
-                                    showProgress(false);
+                                    fragmentManager.beginTransaction().hide(fragmentManager.findFragmentById(R.id.fragment_main)).commit();
                                     POSITION = 9999;
                                 }
 
@@ -144,7 +146,7 @@ public class MainActivity extends AppCompatActivity {
                                 public void handleFault(BackendlessFault fault) {
 
                                     Toast.makeText(MainActivity.this, "Error: " +fault.getMessage(), Toast.LENGTH_SHORT).show();
-                                    showProgress(false);
+                                    fragmentManager.beginTransaction().hide(fragmentManager.findFragmentById(R.id.fragment_main)).commit();
                                 }
                             });
                         }
@@ -193,10 +195,11 @@ public class MainActivity extends AppCompatActivity {
                 return true;
             case R.id.action_info:
                 //TODO: implement info class
+                startActivity(new Intent(MainActivity.this, Information.class));
                 return true;
             case R.id.action_logout:
-                showProgress(true);
-                tvLoad.setText("User logging out...please wait...");
+                fragmentManager.beginTransaction().show(fragmentManager.findFragmentById(R.id.fragment_main)).commit();
+                myText.showText("User logging out...please wait...");
                 Backendless.UserService.logout(new AsyncCallback<Void>() {
                     @Override
                     public void handleResponse(Void response) {
@@ -210,7 +213,7 @@ public class MainActivity extends AppCompatActivity {
                     public void handleFault(BackendlessFault fault) {
 
                         Toast.makeText(MainActivity.this, "Error: " + fault.getMessage(), Toast.LENGTH_SHORT).show();
-                        showProgress(false);
+                        fragmentManager.beginTransaction().hide(fragmentManager.findFragmentById(R.id.fragment_main)).commit();
                     }
                 });
                 return true;
@@ -218,37 +221,5 @@ public class MainActivity extends AppCompatActivity {
                 return super.onOptionsItemSelected(item);
         }
 
-    }
-
-    private void showProgress(final boolean show) {
-
-        int shortAnimTime = getResources().getInteger(android.R.integer.config_shortAnimTime);
-
-        mLoginFormView.setVisibility(show ? View.GONE : View.VISIBLE);
-        mLoginFormView.animate().setDuration(shortAnimTime).alpha(
-                show ? 0 : 1).setListener(new AnimatorListenerAdapter() {
-            @Override
-            public void onAnimationEnd(Animator animation) {
-                mLoginFormView.setVisibility(show ? View.GONE : View.VISIBLE);
-            }
-        });
-
-        mProgressView.setVisibility(show ? View.VISIBLE : View.GONE);
-        mProgressView.animate().setDuration(shortAnimTime).alpha(
-                show ? 1 : 0).setListener(new AnimatorListenerAdapter() {
-            @Override
-            public void onAnimationEnd(Animator animation) {
-                mProgressView.setVisibility(show ? View.VISIBLE : View.GONE);
-            }
-        });
-
-        tvLoad.setVisibility(show ? View.VISIBLE : View.GONE);
-        tvLoad.animate().setDuration(shortAnimTime).alpha(
-                show ? 1 : 0).setListener(new AnimatorListenerAdapter() {
-            @Override
-            public void onAnimationEnd(Animator animation) {
-                tvLoad.setVisibility(show ? View.VISIBLE : View.GONE);
-            }
-        });
     }
 }

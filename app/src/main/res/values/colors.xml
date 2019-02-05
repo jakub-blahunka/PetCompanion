@@ -9,4 +9,6 @@
     <color name="colorDivider">#BDBDBD</color>
 
     <color name="colorOrange">#FF9800</color>
+    <color name="colorPrimaryLightTrans">#81dcedc8</color>
+
 </resources>

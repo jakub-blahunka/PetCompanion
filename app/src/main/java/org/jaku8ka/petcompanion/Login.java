@@ -5,6 +5,7 @@ import android.animation.AnimatorListenerAdapter;
 import android.annotation.TargetApi;
 import android.content.Intent;
 import android.os.Build;
+import android.support.v4.app.FragmentManager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -22,10 +23,9 @@ import com.backendless.persistence.local.UserIdStorageFactory;
 
 public class Login extends AppCompatActivity {
 
-    private View mProgressView;
-    private View mLoginFormView;
-    private TextView tvLoad;
 
+    ISetTextInFragment myText;
+    FragmentManager fragmentManager;
     EditText etMail, etPassword;
     Button btnLogin, btnRegister;
     TextView tvReset;
@@ -35,9 +35,9 @@ public class Login extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
 
-        mLoginFormView = findViewById(R.id.login_form);
-        mProgressView = findViewById(R.id.login_progress);
-        tvLoad = findViewById(R.id.tvLoad);
+        fragmentManager = getSupportFragmentManager();
+        fragmentManager.beginTransaction().hide(fragmentManager.findFragmentById(R.id.fragment_login)).commit();
+        myText = (ISetTextInFragment) fragmentManager.findFragmentById(R.id.fragment_login);
 
         etMail = findViewById(R.id.etMail);
         etPassword = findViewById(R.id.etPassword);
@@ -55,8 +55,8 @@ public class Login extends AppCompatActivity {
                     String mail = etMail.getText().toString().trim();
                     String password = etPassword.getText().toString().trim();
 
-                    showProgress(true);
-                    tvLoad.setText("Logging you in...please wait...");
+                    fragmentManager.beginTransaction().show(fragmentManager.findFragmentById(R.id.fragment_login)).commit();
+                    myText.showText("Logging you in...please wait...");
 
                     Backendless.UserService.login(mail, password, new AsyncCallback<BackendlessUser>() {
                         @Override
@@ -72,7 +72,7 @@ public class Login extends AppCompatActivity {
                         public void handleFault(BackendlessFault fault) {
 
                             Toast.makeText(Login.this, "Error: " + fault.getMessage(), Toast.LENGTH_SHORT).show();
-                            showProgress(false);
+                            fragmentManager.beginTransaction().hide(fragmentManager.findFragmentById(R.id.fragment_login)).commit();
                         }
                     }, true);
                 }
@@ -96,30 +96,30 @@ public class Login extends AppCompatActivity {
                 } else  {
                     String mail = etMail.getText().toString().trim();
 
-                    showProgress(true);
-                    tvLoad.setText("Sending reset instructions...please wait...");
+                    fragmentManager.beginTransaction().show(fragmentManager.findFragmentById(R.id.fragment_login)).commit();
+                    myText.showText("Sending reset instructions...please wait...");
 
                     Backendless.UserService.restorePassword(mail, new AsyncCallback<Void>() {
                         @Override
                         public void handleResponse(Void response) {
 
                             Toast.makeText(Login.this, "Reset instructions sent to e-mail address!", Toast.LENGTH_SHORT).show();
-                            showProgress(false);
+                            fragmentManager.beginTransaction().hide(fragmentManager.findFragmentById(R.id.fragment_login)).commit();
                         }
 
                         @Override
                         public void handleFault(BackendlessFault fault) {
 
                             Toast.makeText(Login.this, "Error: " + fault.getMessage(), Toast.LENGTH_SHORT).show();
-                            showProgress(false);
+                            fragmentManager.beginTransaction().hide(fragmentManager.findFragmentById(R.id.fragment_login)).commit();
                         }
                     });
                 }
             }
         });
 
-        showProgress(true);
-        tvLoad.setText("Checking login credentials...please wait...");
+        fragmentManager.beginTransaction().show(fragmentManager.findFragmentById(R.id.fragment_login)).commit();
+        myText.showText("Checking login credentials...please wait...");
 
         Backendless.UserService.isValidLogin(new AsyncCallback<Boolean>() {
             @Override
@@ -128,7 +128,7 @@ public class Login extends AppCompatActivity {
                 if(response) {
                     String userObjectId = UserIdStorageFactory.instance().getStorage().get();
 
-                    tvLoad.setText("Logging you in...please wait...");
+                    myText.showText("Logging you in...please wait...");
                     Backendless.Data.of(BackendlessUser.class).findById(userObjectId, new AsyncCallback<BackendlessUser>() {
                         @Override
                         public void handleResponse(BackendlessUser response) {
@@ -142,11 +142,11 @@ public class Login extends AppCompatActivity {
                         public void handleFault(BackendlessFault fault) {
 
                             Toast.makeText(Login.this, "Error: " + fault.getMessage(), Toast.LENGTH_SHORT).show();
-                            showProgress(false);
+                            fragmentManager.beginTransaction().hide(fragmentManager.findFragmentById(R.id.fragment_login)).commit();
                         }
                     });
                 } else {
-                    showProgress(false);
+                    fragmentManager.beginTransaction().hide(fragmentManager.findFragmentById(R.id.fragment_login)).commit();
                 }
 
             }
@@ -155,42 +155,10 @@ public class Login extends AppCompatActivity {
             public void handleFault(BackendlessFault fault) {
 
                 Toast.makeText(Login.this, "Error: " + fault.getMessage(), Toast.LENGTH_SHORT).show();
-                showProgress(false);
+                fragmentManager.beginTransaction().hide(fragmentManager.findFragmentById(R.id.fragment_login)).commit();
             }
         });
 
-    }
-
-    private void showProgress(final boolean show) {
-
-        int shortAnimTime = getResources().getInteger(android.R.integer.config_shortAnimTime);
-
-        mLoginFormView.setVisibility(show ? View.GONE : View.VISIBLE);
-        mLoginFormView.animate().setDuration(shortAnimTime).alpha(
-                show ? 0 : 1).setListener(new AnimatorListenerAdapter() {
-            @Override
-            public void onAnimationEnd(Animator animation) {
-                mLoginFormView.setVisibility(show ? View.GONE : View.VISIBLE);
-            }
-        });
-
-        mProgressView.setVisibility(show ? View.VISIBLE : View.GONE);
-        mProgressView.animate().setDuration(shortAnimTime).alpha(
-                show ? 1 : 0).setListener(new AnimatorListenerAdapter() {
-            @Override
-            public void onAnimationEnd(Animator animation) {
-                mProgressView.setVisibility(show ? View.VISIBLE : View.GONE);
-            }
-        });
-
-        tvLoad.setVisibility(show ? View.VISIBLE : View.GONE);
-        tvLoad.animate().setDuration(shortAnimTime).alpha(
-                show ? 1 : 0).setListener(new AnimatorListenerAdapter() {
-            @Override
-            public void onAnimationEnd(Animator animation) {
-                tvLoad.setVisibility(show ? View.VISIBLE : View.GONE);
-            }
-        });
     }
 
 }

@@ -4,6 +4,7 @@ import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.support.v4.app.FragmentManager;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -21,9 +22,8 @@ import com.backendless.exceptions.BackendlessFault;
 
 public class Register extends AppCompatActivity {
 
-    private View mProgressView;
-    private View mLoginFormView;
-    private TextView tvLoad;
+    ISetTextInFragment myText;
+    FragmentManager fragmentManager;
 
     EditText etName, etMail, etPassword, etReEnter;
     CheckBox cbGDPR;
@@ -35,9 +35,11 @@ public class Register extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_register);
 
-        mLoginFormView = findViewById(R.id.login_form);
-        mProgressView = findViewById(R.id.login_progress);
-        tvLoad = findViewById(R.id.tvLoad);
+        fragmentManager = getSupportFragmentManager();
+        fragmentManager.beginTransaction().hide(fragmentManager.findFragmentById(R.id.fragment_register)).commit();
+        myText = (ISetTextInFragment) fragmentManager.findFragmentById(R.id.fragment_register);
+
+        fragmentManager.beginTransaction().hide(fragmentManager.findFragmentById(R.id.fragment_register)).commit();
 
         etName = findViewById(R.id.etName);
         etMail = findViewById(R.id.etMail);
@@ -89,9 +91,9 @@ public class Register extends AppCompatActivity {
                             user.setProperty("name", name);
                             user.setProperty("gdpr", gdpr);
 
-                            showProgress(true);
+                            fragmentManager.beginTransaction().show(fragmentManager.findFragmentById(R.id.fragment_register)).commit();
 
-                            tvLoad.setText("Registering user...please wait...");
+                            myText.showText("Registering user...please wait...");
                             Backendless.UserService.register(user, new AsyncCallback<BackendlessUser>() {
                                 @Override
                                 public void handleResponse(BackendlessUser response) {
@@ -104,7 +106,7 @@ public class Register extends AppCompatActivity {
                                 public void handleFault(BackendlessFault fault) {
 
                                     Toast.makeText(Register.this, "Error: " + fault.getMessage(), Toast.LENGTH_SHORT).show();
-                                    showProgress(false);
+                                    fragmentManager.beginTransaction().hide(fragmentManager.findFragmentById(R.id.fragment_register)).commit();
                                 }
                             });
                         }
@@ -113,38 +115,6 @@ public class Register extends AppCompatActivity {
                         Toast.makeText(Register.this, "Please make sure that your password and re-type password is the same!", Toast.LENGTH_SHORT).show();
                     }
                 }
-            }
-        });
-    }
-
-    private void showProgress(final boolean show) {
-
-        int shortAnimTime = getResources().getInteger(android.R.integer.config_shortAnimTime);
-
-        mLoginFormView.setVisibility(show ? View.GONE : View.VISIBLE);
-        mLoginFormView.animate().setDuration(shortAnimTime).alpha(
-                show ? 0 : 1).setListener(new AnimatorListenerAdapter() {
-            @Override
-            public void onAnimationEnd(Animator animation) {
-                mLoginFormView.setVisibility(show ? View.GONE : View.VISIBLE);
-            }
-        });
-
-        mProgressView.setVisibility(show ? View.VISIBLE : View.GONE);
-        mProgressView.animate().setDuration(shortAnimTime).alpha(
-                show ? 1 : 0).setListener(new AnimatorListenerAdapter() {
-            @Override
-            public void onAnimationEnd(Animator animation) {
-                mProgressView.setVisibility(show ? View.VISIBLE : View.GONE);
-            }
-        });
-
-        tvLoad.setVisibility(show ? View.VISIBLE : View.GONE);
-        tvLoad.animate().setDuration(shortAnimTime).alpha(
-                show ? 1 : 0).setListener(new AnimatorListenerAdapter() {
-            @Override
-            public void onAnimationEnd(Animator animation) {
-                tvLoad.setVisibility(show ? View.VISIBLE : View.GONE);
             }
         });
     }
