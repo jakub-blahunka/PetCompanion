@@ -83,7 +83,7 @@
                     android:layout_marginStart="4dp"
                     android:layout_marginTop="8dp"
                     android:text="..."
-                    android:textColor="@color/colorTextSecondary"
+                    android:textColor="@color/colorAccent"
                     android:textSize="18sp"
                     android:textStyle="bold" />
 
@@ -105,7 +105,7 @@
                 android:layout_weight="1"
                 android:gravity="start"
                 android:text="Last parasites"
-                android:textColor="@color/colorPrimaryDark" />
+                android:textColor="@color/colorText" />
 
             <TextView
                 android:id="@+id/tv_next_par"
@@ -115,7 +115,7 @@
                 android:layout_weight="1"
                 android:gravity="end"
                 android:text="Next parasites"
-                android:textColor="@color/colorAccent" />
+                android:textColor="@color/colorText" />
 
         </LinearLayout>
 
@@ -131,7 +131,8 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="8dp"
                 android:layout_weight="1"
-                android:text="..." />
+                android:text="..."
+                android:textColor="@color/colorAccent" />
 
             <TextView
                 android:id="@+id/tv_par_count"
@@ -140,6 +141,7 @@
                 android:layout_weight="1"
                 android:gravity="center"
                 android:text="..."
+                android:textColor="@color/colorAccent"
                 android:textSize="12sp" />
 
             <TextView
@@ -149,7 +151,8 @@
                 android:layout_marginEnd="8dp"
                 android:layout_weight="1"
                 android:gravity="end"
-                android:text="..." />
+                android:text="..."
+                android:textColor="@color/colorAccent" />
 
 
         </LinearLayout>
@@ -176,7 +179,7 @@
                 android:layout_weight="1"
                 android:gravity="start"
                 android:text="Last vaccination"
-                android:textColor="@color/colorPrimaryDark" />
+                android:textColor="@color/colorText" />
 
             <TextView
                 android:id="@+id/tv_next_vac"
@@ -186,7 +189,7 @@
                 android:layout_weight="1"
                 android:gravity="end"
                 android:text="Next vaccination"
-                android:textColor="@color/colorAccent" />
+                android:textColor="@color/colorText" />
 
         </LinearLayout>
 
@@ -203,7 +206,8 @@
                 android:layout_marginStart="8dp"
                 android:layout_weight="1"
                 android:gravity="start"
-                android:text="..." />
+                android:text="..."
+                android:textColor="@color/colorAccent" />
 
             <TextView
                 android:id="@+id/tv_vac_count"
@@ -212,6 +216,7 @@
                 android:layout_weight="1"
                 android:gravity="center"
                 android:text="..."
+                android:textColor="@color/colorAccent"
                 android:textSize="12sp" />
 
             <TextView
@@ -221,7 +226,8 @@
                 android:layout_marginEnd="8dp"
                 android:layout_weight="1"
                 android:gravity="end"
-                android:text="..." />
+                android:text="..."
+                android:textColor="@color/colorAccent" />
 
         </LinearLayout>
 

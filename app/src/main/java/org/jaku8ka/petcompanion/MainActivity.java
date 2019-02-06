@@ -13,6 +13,8 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.widget.AbsListView;
 import android.widget.AdapterView;
 import android.widget.Button;
@@ -97,7 +99,25 @@ public class MainActivity extends AppCompatActivity {
                 if (POSITION == 9999) {
                     Toast.makeText(MainActivity.this, "First choose pet to get closer information!", Toast.LENGTH_SHORT).show();
                 } else {
-                    startActivity(new Intent(MainActivity.this, PetInfo.class));
+                    Animation animation = AnimationUtils.loadAnimation(MainActivity.this, R.anim.fadeout);
+                    animation.setAnimationListener(new Animation.AnimationListener() {
+                        @Override
+                        public void onAnimationStart(Animation animation) {
+
+                        }
+
+                        @Override
+                        public void onAnimationEnd(Animation animation) {
+
+                            startActivity(new Intent(MainActivity.this, PetInfo.class));
+                        }
+
+                        @Override
+                        public void onAnimationRepeat(Animation animation) {
+
+                        }
+                    });
+                    ivInfo.startAnimation(animation);
                 }
 
             }
@@ -110,8 +130,27 @@ public class MainActivity extends AppCompatActivity {
                 if (POSITION == 9999) {
                     Toast.makeText(MainActivity.this, "First choose pet to edit!", Toast.LENGTH_SHORT).show();
                 } else {
-                    startActivity(new Intent(MainActivity.this, NewPet.class));
-                    adapter.notifyDataSetChanged();
+
+                    Animation animation = AnimationUtils.loadAnimation(MainActivity.this, R.anim.fadeout);
+                    animation.setAnimationListener(new Animation.AnimationListener() {
+                        @Override
+                        public void onAnimationStart(Animation animation) {
+
+                        }
+
+                        @Override
+                        public void onAnimationEnd(Animation animation) {
+
+                            startActivity(new Intent(MainActivity.this, NewPet.class));
+                            adapter.notifyDataSetChanged();
+                        }
+
+                        @Override
+                        public void onAnimationRepeat(Animation animation) {
+
+                        }
+                    });
+                    ivEdit.startAnimation(animation);
                 }
             }
         });
@@ -123,43 +162,66 @@ public class MainActivity extends AppCompatActivity {
                 if (POSITION == 9999) {
                     Toast.makeText(MainActivity.this, "First choose pet to delete!", Toast.LENGTH_SHORT).show();
                 } else {
-                    final AlertDialog.Builder dialog = new AlertDialog.Builder(MainActivity.this);
-                    dialog.setMessage("Are you sure you want to delete this pet?");
 
-                    dialog.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+                    Animation animation = AnimationUtils.loadAnimation(MainActivity.this, R.anim.fadeout);
+                    animation.setAnimationListener(new Animation.AnimationListener() {
                         @Override
-                        public void onClick(DialogInterface dialogInterface, int i) {
-                            fragmentManager.beginTransaction().show(fragmentManager.findFragmentById(R.id.fragment_main)).commit();
-                            myText.showText("Deleting pet...please wait...");
+                        public void onAnimationStart(Animation animation) {
 
-                            Backendless.Persistence.of(Pet.class).remove(ApplicationClass.pets.get(POSITION), new AsyncCallback<Long>() {
+                        }
+
+                        @Override
+                        public void onAnimationEnd(final Animation animation) {
+
+                            final AlertDialog.Builder dialog = new AlertDialog.Builder(MainActivity.this);
+                            dialog.setMessage("Are you sure you want to delete this pet?");
+
+                            dialog.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
                                 @Override
-                                public void handleResponse(Long response) {
-                                    ApplicationClass.pets.remove(POSITION);
-                                    Toast.makeText(MainActivity.this, "Pet successfully removed!", Toast.LENGTH_SHORT).show();
-                                    setResult(RESULT_OK);
-                                    adapter.notifyDataSetChanged();
-                                    fragmentManager.beginTransaction().hide(fragmentManager.findFragmentById(R.id.fragment_main)).commit();
-                                    POSITION = 9999;
-                                }
+                                public void onClick(DialogInterface dialogInterface, int i) {
+                                    fragmentManager.beginTransaction().show(fragmentManager.findFragmentById(R.id.fragment_main)).commit();
+                                    myText.showText("Deleting pet...please wait...");
 
-                                @Override
-                                public void handleFault(BackendlessFault fault) {
+                                    Backendless.Persistence.of(Pet.class).remove(ApplicationClass.pets.get(POSITION), new AsyncCallback<Long>() {
+                                        @Override
+                                        public void handleResponse(Long response) {
+                                            ApplicationClass.pets.remove(POSITION);
+                                            Toast.makeText(MainActivity.this, "Pet successfully removed!", Toast.LENGTH_SHORT).show();
+                                            ivDelete.clearAnimation();
+                                            setResult(RESULT_OK);
+                                            adapter.notifyDataSetChanged();
+                                            fragmentManager.beginTransaction().hide(fragmentManager.findFragmentById(R.id.fragment_main)).commit();
+                                            POSITION = 9999;
+                                        }
 
-                                    Toast.makeText(MainActivity.this, "Error: " +fault.getMessage(), Toast.LENGTH_SHORT).show();
-                                    fragmentManager.beginTransaction().hide(fragmentManager.findFragmentById(R.id.fragment_main)).commit();
+                                        @Override
+                                        public void handleFault(BackendlessFault fault) {
+
+                                            Toast.makeText(MainActivity.this, "Error: " +fault.getMessage(), Toast.LENGTH_SHORT).show();
+                                            fragmentManager.beginTransaction().hide(fragmentManager.findFragmentById(R.id.fragment_main)).commit();
+                                        }
+                                    });
                                 }
                             });
-                        }
-                    });
 
-                    dialog.setNegativeButton("No", new DialogInterface.OnClickListener() {
+                            dialog.setNegativeButton("No", new DialogInterface.OnClickListener() {
+                                @Override
+                                public void onClick(DialogInterface dialogInterface, int i) {
+                                    ivDelete.clearAnimation();
+
+                                }
+                            });
+                            dialog.show();
+                        }
+
                         @Override
-                        public void onClick(DialogInterface dialogInterface, int i) {
+                        public void onAnimationRepeat(Animation animation) {
 
                         }
                     });
-                    dialog.show();
+                    ivDelete.startAnimation(animation);
+
+
                 }
 
             }
@@ -192,6 +254,7 @@ public class MainActivity extends AppCompatActivity {
         switch (item.getItemId()) {
             case R.id.action_add:
                 POSITION = 9999;
+
                 startActivity(new Intent(MainActivity.this, NewPet.class));
                 return true;
             case R.id.action_info:

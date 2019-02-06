@@ -104,11 +104,11 @@ public class PetInfo extends AppCompatActivity {
 
                 Float typePar = getPbPercent(parProgress, parCount);
                 if (typePar < 33.0) {
-                    progressDrawablePar.setColorFilter(this.getColor(R.color.colorPrimary), PorterDuff.Mode.SRC_IN);
+                    progressDrawablePar.setColorFilter(this.getColor(R.color.colorGreen), PorterDuff.Mode.SRC_IN);
                 } else if (typePar < 66.0) {
                     progressDrawablePar.setColorFilter(this.getColor(R.color.colorOrange), PorterDuff.Mode.SRC_IN);
                 } else
-                    progressDrawablePar.setColorFilter(this.getColor(R.color.colorAccent), PorterDuff.Mode.SRC_IN);
+                    progressDrawablePar.setColorFilter(this.getColor(R.color.colorRed), PorterDuff.Mode.SRC_IN);
             } else {
                 pb_par.setProgress(0);
             }
@@ -129,11 +129,11 @@ public class PetInfo extends AppCompatActivity {
 
                 Float typeVac = getPbPercent(vacProgress, vacCount);
                 if (typeVac < 33.0) {
-                    progressDrawableVac.setColorFilter(this.getColor(R.color.colorPrimary), PorterDuff.Mode.SRC_IN);
+                    progressDrawableVac.setColorFilter(this.getColor(R.color.colorGreen), PorterDuff.Mode.SRC_IN);
                 } else if (typeVac < 66.0) {
                     progressDrawableVac.setColorFilter(this.getColor(R.color.colorOrange), PorterDuff.Mode.SRC_IN);
                 } else
-                    progressDrawableVac.setColorFilter(this.getColor(R.color.colorAccent), PorterDuff.Mode.SRC_IN);
+                    progressDrawableVac.setColorFilter(this.getColor(R.color.colorRed), PorterDuff.Mode.SRC_IN);
             } else {
                 pb_vac.setProgress(0);
             }

@@ -4,13 +4,11 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/colorPrimaryLight"
     tools:context=".NewPet">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@color/colorDivider"
         android:orientation="vertical">
 
         <fragment
@@ -62,7 +60,7 @@
                     android:gravity="end"
                     android:hint="Enter pet name"
                     android:inputType="text"
-                    android:textColor="@color/colorTextSecondary"
+                    android:textColor="@color/colorPrimary"
                     android:textSize="12sp" />
 
             </LinearLayout>
@@ -130,7 +128,7 @@
                     android:gravity="end"
                     android:hint="Choose date"
                     android:longClickable="false"
-                    android:textColor="@color/colorTextSecondary"
+                    android:textColor="@color/colorPrimary"
                     android:textSize="12sp" />
 
                 <Button
@@ -205,7 +203,7 @@
                     android:gravity="end"
                     android:hint="Enter species"
                     android:inputType="text"
-                    android:textColor="@color/colorTextSecondary"
+                    android:textColor="@color/colorPrimary"
                     android:textSize="12sp" />
 
             </LinearLayout>
@@ -241,7 +239,7 @@
                     android:gravity="end"
                     android:hint="Enter color of pet"
                     android:inputType="text"
-                    android:textColor="@color/colorTextSecondary"
+                    android:textColor="@color/colorPrimary"
                     android:textSize="12sp" />
 
             </LinearLayout>
@@ -283,7 +281,7 @@
                     android:gravity="end"
                     android:hint="Choose date"
                     android:longClickable="false"
-                    android:textColor="@color/colorTextSecondary"
+                    android:textColor="@color/colorPrimary"
                     android:textSize="12sp" />
 
                 <Button
@@ -359,7 +357,7 @@
                     android:gravity="end"
                     android:hint="Choose date"
                     android:longClickable="false"
-                    android:textColor="@color/colorTextSecondary"
+                    android:textColor="@color/colorPrimary"
                     android:textSize="12sp" />
 
                 <Button
