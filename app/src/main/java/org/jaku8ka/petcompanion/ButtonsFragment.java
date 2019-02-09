@@ -4,6 +4,7 @@ package org.jaku8ka.petcompanion;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v7.app.AlertDialog;
@@ -27,9 +28,6 @@ import com.backendless.exceptions.BackendlessFault;
 public class ButtonsFragment extends Fragment {
 
     ImageView ivDelete, ivEdit;
-    ISetTextInFragment myText;
-    FragmentManager fragmentManager;
-    PetsAdapter adapter;
 
     public ButtonsFragment() {
         // Required empty public constructor
@@ -42,10 +40,6 @@ public class ButtonsFragment extends Fragment {
 
         ivEdit = view.findViewById(R.id.ivEdit);
         ivDelete = view.findViewById(R.id.ivDelete);
-
-        adapter = new PetsAdapter(getContext(), ApplicationClass.pets);
-        fragmentManager = getFragmentManager();
-        myText = (ISetTextInFragment) fragmentManager.findFragmentById(R.id.fragmentLoad);
 
         ivEdit.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -66,7 +60,6 @@ public class ButtonsFragment extends Fragment {
                         public void onAnimationEnd(Animation animation) {
 
                             startActivity(new Intent(getContext(), NewPet.class));
-                            adapter.notifyDataSetChanged();
                         }
 
                         @Override
@@ -103,12 +96,6 @@ public class ButtonsFragment extends Fragment {
                             dialog.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
                                 @Override
                                 public void onClick(DialogInterface dialogInterface, int i) {
-                                    fragmentManager.beginTransaction()
-                                            .hide(fragmentManager.findFragmentById(R.id.fragmentList))
-                                            .hide(fragmentManager.findFragmentById(R.id.fragmentButtons))
-                                            .show(fragmentManager.findFragmentById(R.id.fragmentLoad))
-                                            .commit();
-                                    myText.showText("Deleting pet...please wait...");
 
                                     Backendless.Persistence.of(Pet.class).remove(ApplicationClass.pets.get(MainActivity.POSITION), new AsyncCallback<Long>() {
                                         @Override
@@ -116,12 +103,19 @@ public class ButtonsFragment extends Fragment {
                                             ApplicationClass.pets.remove(MainActivity.POSITION);
                                             Toast.makeText(getContext(), "Pet successfully removed!", Toast.LENGTH_SHORT).show();
                                             ivDelete.clearAnimation();
-                                            adapter.notifyDataSetChanged();
-                                            fragmentManager.beginTransaction()
-                                                    .hide(fragmentManager.findFragmentById(R.id.fragmentLoad))
-                                                    .show(fragmentManager.findFragmentById(R.id.fragmentList))
-                                                    .show(fragmentManager.findFragmentById(R.id.fragmentButtons))
-                                                    .commit();
+
+                                            if(getActivity().findViewById(R.id.layoutPortrait) != null) {
+                                                getFragmentManager().beginTransaction()
+                                                        .show(getFragmentManager().findFragmentById(R.id.fragmentList))
+                                                        .hide(getFragmentManager().findFragmentById(R.id.fragmentDetail))
+                                                        .hide(getFragmentManager().findFragmentById(R.id.fragmentButtons))
+                                                        .commit();
+                                            }
+
+                                            ((MainActivity)getActivity()).dataChanged();
+                                            if(getActivity().findViewById(R.id.layoutLand) != null)
+                                                if(!ApplicationClass.pets.isEmpty())
+                                                    ((MainActivity)getActivity()).onItemSelected(0);
                                             MainActivity.POSITION = 9999;
                                         }
 
@@ -129,11 +123,6 @@ public class ButtonsFragment extends Fragment {
                                         public void handleFault(BackendlessFault fault) {
 
                                             Toast.makeText(getContext(), "Error: " +fault.getMessage(), Toast.LENGTH_SHORT).show();
-                                            fragmentManager.beginTransaction()
-                                                    .show(fragmentManager.findFragmentById(R.id.fragmentLoad))
-                                                    .show(fragmentManager.findFragmentById(R.id.fragmentList))
-                                                    .hide(fragmentManager.findFragmentById(R.id.fragmentButtons))
-                                                    .commit();
                                         }
                                     });
                                 }

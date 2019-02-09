@@ -51,12 +51,17 @@ public class PetListDetailFragment extends Fragment {
         view = inflater.inflate(R.layout.fragment_pet_list_detail, container, false);
 
         initViews();
-        ((Information) getActivity()).setFragmentRefreshListener(new Information.FragmentRefreshListener() {
+
+        ((MainActivity) getActivity()).setFragmentRefreshListener(new MainActivity.FragmentRefreshListener() {
             @Override
             public void onRefresh() {
                 populateUI();
             }
         });
+
+        if(getActivity().findViewById(R.id.layoutLand) != null)
+            if(!ApplicationClass.pets.isEmpty())
+                ((MainActivity)getActivity()).onItemSelected(0);
 
         return view;
     }
@@ -186,21 +191,6 @@ public class PetListDetailFragment extends Fragment {
         pb_vac = view.findViewById(R.id.pb_vac);
         pb_par = view.findViewById(R.id.pb_par);
     }
-
-    /**
-     * @Override public boolean onCreateOptionsMenu(Menu menu) {
-     * getMenuInflater().inflate(R.menu.menu_new_pet, menu);
-     * <p>
-     * ActionBar actionBar = getSupportActionBar();
-     * actionBar.setDisplayHomeAsUpEnabled(true);
-     * <p>
-     * MenuItem menuItem = menu.findItem(R.id.action_ok);
-     * menuItem.setVisible(false);
-     * <p>
-     * return true;
-     * }
-     */
-
 
     private String getAge(int year, int month, int day) {
         Calendar dob = Calendar.getInstance();

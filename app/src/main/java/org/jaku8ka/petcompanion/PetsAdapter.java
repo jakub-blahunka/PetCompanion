@@ -79,8 +79,4 @@ public class PetsAdapter extends ArrayAdapter<Pet> {
         public TextView name;
     }
 
-    @Override
-    public int getCount() {
-        return super.getCount();
-    }
 }

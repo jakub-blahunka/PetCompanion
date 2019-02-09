@@ -31,24 +31,24 @@ import com.backendless.persistence.DataQueryBuilder;
 
 import java.util.List;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity implements ItemSelected{
 
-    ISetTextInFragment myText;
+    private FragmentRefreshListener fragmentRefreshListener;
+    PetsAdapter adapter;
+    ListView lvPetsList;
     FragmentManager fragmentManager;
 
     public static int POSITION = 9999;
 
-    PetsAdapter adapter;
-    ListView lvList;
-    ImageView ivInfo, ivEdit, ivDelete;
 
+    public interface FragmentRefreshListener {
+        void onRefresh();
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
-        initViews();
 
         String whereClause = "userEmail = '" + ApplicationClass.user.getEmail() + "'";
 
@@ -56,189 +56,77 @@ public class MainActivity extends AppCompatActivity {
         queryBuilder.setWhereClause(whereClause);
         queryBuilder.setGroupBy("name");
 
-        fragmentManager.beginTransaction().show(fragmentManager.findFragmentById(R.id.fragment_main)).commit();
-        myText.showText("Getting all pets...please wait...");
-
         Backendless.Persistence.of(Pet.class).find(queryBuilder, new AsyncCallback<List<Pet>>() {
             @Override
             public void handleResponse(List<Pet> response) {
-
                 ApplicationClass.pets = response;
+                lvPetsList = findViewById(android.R.id.list);
                 adapter = new PetsAdapter(MainActivity.this, ApplicationClass.pets);
-                lvList.setAdapter(adapter);
-                fragmentManager.beginTransaction().hide(fragmentManager.findFragmentById(R.id.fragment_main)).commit();
+                lvPetsList.setAdapter(adapter);
 
                 POSITION = 9999;
+
+                if(findViewById(R.id.layoutPortrait) == null){
+                    if(!response.isEmpty()) {
+                        onItemSelected(0);
+                    }
+                }
             }
 
             @Override
             public void handleFault(BackendlessFault fault) {
 
                 Toast.makeText(MainActivity.this, "Error: " + fault.getMessage(), Toast.LENGTH_SHORT).show();
-                fragmentManager.beginTransaction().hide(fragmentManager.findFragmentById(R.id.fragment_main)).commit();
             }
         });
+        fragmentManager = getSupportFragmentManager();
+        if(findViewById(R.id.layoutPortrait) != null) {
+            fragmentManager.beginTransaction()
+                    .hide(fragmentManager.findFragmentById(R.id.fragmentDetail))
+                    .hide(fragmentManager.findFragmentById(R.id.fragmentButtons))
+                    .show(fragmentManager.findFragmentById(R.id.fragmentList))
+                    .commit();
+        } else  {
+            fragmentManager.beginTransaction()
+                    .show(fragmentManager.findFragmentById(R.id.fragmentDetail))
+                    .show(fragmentManager.findFragmentById(R.id.fragmentButtons))
+                    .show(fragmentManager.findFragmentById(R.id.fragmentList))
+                    .commit();
+        }
+
     }
 
-    private void initViews() {
+    @Override
+    public void onItemSelected(int index) {
+        POSITION = index;
 
-        fragmentManager = getSupportFragmentManager();
-        fragmentManager.beginTransaction().hide(fragmentManager.findFragmentById(R.id.fragment_main)).commit();
-        myText = (ISetTextInFragment) fragmentManager.findFragmentById(R.id.fragment_main);
+        if(getFragmentRefreshListener() != null) {
+            getFragmentRefreshListener().onRefresh();
+        }
 
-        lvList = findViewById(R.id.lvList);
+        if(findViewById(R.id.layoutPortrait) != null) {
 
-        ivInfo = findViewById(R.id.ivInfo);
-        ivEdit = findViewById(R.id.ivEdit);
-        ivDelete = findViewById(R.id.ivDelete);
-
-        ivInfo.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-
-                if (POSITION == 9999) {
-                    Toast.makeText(MainActivity.this, "First choose pet to get closer information!", Toast.LENGTH_SHORT).show();
-                } else {
-                    Animation animation = AnimationUtils.loadAnimation(MainActivity.this, R.anim.fadeout);
-                    animation.setAnimationListener(new Animation.AnimationListener() {
-                        @Override
-                        public void onAnimationStart(Animation animation) {
-
-                        }
-
-                        @Override
-                        public void onAnimationEnd(Animation animation) {
-
-                            startActivity(new Intent(MainActivity.this, PetInfo.class));
-                        }
-
-                        @Override
-                        public void onAnimationRepeat(Animation animation) {
-
-                        }
-                    });
-                    ivInfo.startAnimation(animation);
-                }
-
+            fragmentManager.beginTransaction()
+                    .show(fragmentManager.findFragmentById(R.id.fragmentDetail))
+                    .show(fragmentManager.findFragmentById(R.id.fragmentButtons))
+                    .hide(fragmentManager.findFragmentById(R.id.fragmentList))
+                    .addToBackStack(null)
+                    .commit();
+        } else {
+            for(int i = 0; i < ApplicationClass.pets.size(); i++) {
+                ApplicationClass.pets.get(i).setSelected(false);
             }
-        });
+            ApplicationClass.pets.get(index).setSelected(true);
+            adapter.notifyDataSetChanged();
+        }
+    }
 
-        ivEdit.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
+    public FragmentRefreshListener getFragmentRefreshListener() {
+        return fragmentRefreshListener;
+    }
 
-                if (POSITION == 9999) {
-                    Toast.makeText(MainActivity.this, "First choose pet to edit!", Toast.LENGTH_SHORT).show();
-                } else {
-
-                    Animation animation = AnimationUtils.loadAnimation(MainActivity.this, R.anim.fadeout);
-                    animation.setAnimationListener(new Animation.AnimationListener() {
-                        @Override
-                        public void onAnimationStart(Animation animation) {
-
-                        }
-
-                        @Override
-                        public void onAnimationEnd(Animation animation) {
-
-                            startActivity(new Intent(MainActivity.this, NewPet.class));
-                            adapter.notifyDataSetChanged();
-                        }
-
-                        @Override
-                        public void onAnimationRepeat(Animation animation) {
-
-                        }
-                    });
-                    ivEdit.startAnimation(animation);
-                }
-            }
-        });
-
-        ivDelete.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-
-                if (POSITION == 9999) {
-                    Toast.makeText(MainActivity.this, "First choose pet to delete!", Toast.LENGTH_SHORT).show();
-                } else {
-
-                    Animation animation = AnimationUtils.loadAnimation(MainActivity.this, R.anim.fadeout);
-                    animation.setAnimationListener(new Animation.AnimationListener() {
-                        @Override
-                        public void onAnimationStart(Animation animation) {
-
-                        }
-
-                        @Override
-                        public void onAnimationEnd(final Animation animation) {
-
-                            final AlertDialog.Builder dialog = new AlertDialog.Builder(MainActivity.this);
-                            dialog.setMessage("Are you sure you want to delete this pet?");
-
-                            dialog.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
-                                @Override
-                                public void onClick(DialogInterface dialogInterface, int i) {
-                                    fragmentManager.beginTransaction().show(fragmentManager.findFragmentById(R.id.fragment_main)).commit();
-                                    myText.showText("Deleting pet...please wait...");
-
-                                    Backendless.Persistence.of(Pet.class).remove(ApplicationClass.pets.get(POSITION), new AsyncCallback<Long>() {
-                                        @Override
-                                        public void handleResponse(Long response) {
-                                            ApplicationClass.pets.remove(POSITION);
-                                            Toast.makeText(MainActivity.this, "Pet successfully removed!", Toast.LENGTH_SHORT).show();
-                                            ivDelete.clearAnimation();
-                                            setResult(RESULT_OK);
-                                            adapter.notifyDataSetChanged();
-                                            fragmentManager.beginTransaction().hide(fragmentManager.findFragmentById(R.id.fragment_main)).commit();
-                                            POSITION = 9999;
-                                        }
-
-                                        @Override
-                                        public void handleFault(BackendlessFault fault) {
-
-                                            Toast.makeText(MainActivity.this, "Error: " +fault.getMessage(), Toast.LENGTH_SHORT).show();
-                                            fragmentManager.beginTransaction().hide(fragmentManager.findFragmentById(R.id.fragment_main)).commit();
-                                        }
-                                    });
-                                }
-                            });
-
-                            dialog.setNegativeButton("No", new DialogInterface.OnClickListener() {
-                                @Override
-                                public void onClick(DialogInterface dialogInterface, int i) {
-                                    ivDelete.clearAnimation();
-
-                                }
-                            });
-                            dialog.show();
-                        }
-
-                        @Override
-                        public void onAnimationRepeat(Animation animation) {
-
-                        }
-                    });
-                    ivDelete.startAnimation(animation);
-
-
-                }
-
-            }
-        });
-
-        lvList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> adapterView, View view, int position, long l) {
-                MainActivity.POSITION = position;
-                for(int i = 0; i < ApplicationClass.pets.size(); i++) {
-                    ApplicationClass.pets.get(i).setSelected(false);
-                }
-                ApplicationClass.pets.get(position).setSelected(true);
-                adapter.notifyDataSetChanged();
-            }
-        });
-
+    public void setFragmentRefreshListener(FragmentRefreshListener fragmentRefreshListener) {
+        this.fragmentRefreshListener = fragmentRefreshListener;
     }
 
     @Override
@@ -262,8 +150,6 @@ public class MainActivity extends AppCompatActivity {
                 startActivity(new Intent(MainActivity.this, Information.class));
                 return true;
             case R.id.action_logout:
-                fragmentManager.beginTransaction().show(fragmentManager.findFragmentById(R.id.fragment_main)).commit();
-                myText.showText("User logging out...please wait...");
                 Backendless.UserService.logout(new AsyncCallback<Void>() {
                     @Override
                     public void handleResponse(Void response) {
@@ -277,7 +163,6 @@ public class MainActivity extends AppCompatActivity {
                     public void handleFault(BackendlessFault fault) {
 
                         Toast.makeText(MainActivity.this, "Error: " + fault.getMessage(), Toast.LENGTH_SHORT).show();
-                        fragmentManager.beginTransaction().hide(fragmentManager.findFragmentById(R.id.fragment_main)).commit();
                     }
                 });
                 return true;
@@ -285,5 +170,8 @@ public class MainActivity extends AppCompatActivity {
                 return super.onOptionsItemSelected(item);
         }
 
+    }
+    public void dataChanged() {
+        adapter.notifyDataSetChanged();
     }
 }

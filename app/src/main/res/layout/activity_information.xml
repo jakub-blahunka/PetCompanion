@@ -7,43 +7,4 @@
     android:gravity="center"
     android:orientation="vertical">
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="9"
-        android:orientation="horizontal">
-
-        <fragment
-            android:id="@+id/fragmentList"
-            android:name="org.jaku8ka.petcompanion.PetsListFragment"
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            tools:layout="@layout/fragment_pets_list" />
-
-        <fragment
-            android:id="@+id/fragmentDetail"
-            android:name="org.jaku8ka.petcompanion.PetListDetailFragment"
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="2"
-            tools:layout="@layout/fragment_pet_list_detail" />
-    </LinearLayout>
-
-    <fragment
-        android:id="@+id/fragmentLoad"
-        android:name="org.jaku8ka.petcompanion.LoadingFragment"
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="1"
-        tools:layout="@layout/fragment_loading" />
-
-    <fragment
-        android:id="@+id/fragmentButtons"
-        android:name="org.jaku8ka.petcompanion.ButtonsFragment"
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="1.5"
-        tools:layout="@layout/fragment_buttons" />
-
 </LinearLayout>

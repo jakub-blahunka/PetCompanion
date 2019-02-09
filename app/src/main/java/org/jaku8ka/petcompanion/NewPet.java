@@ -32,11 +32,6 @@ import java.util.Locale;
 
 public class NewPet extends AppCompatActivity {
 
-    ISetTextInFragment myText;
-    FragmentManager fragmentManager;
-
-    LinearLayout ll1, ll2;
-
     TextView tvDateBirth, tvDateParasites, tvDateVaccination;
     EditText etName, etSpecies, etColor;
     Spinner sPet, sSex, sParasites, sVaccination;
@@ -96,13 +91,6 @@ public class NewPet extends AppCompatActivity {
     }
 
     private void initViews() {
-
-        fragmentManager = getSupportFragmentManager();
-        fragmentManager.beginTransaction().hide(fragmentManager.findFragmentById(R.id.fragment_newPet)).commit();
-        myText = (ISetTextInFragment) fragmentManager.findFragmentById(R.id.fragment_newPet);
-
-        ll1 = findViewById(R.id.ll1);
-        ll2 = findViewById(R.id.ll2);
 
         tvDateBirth = findViewById(R.id.tvDateBirth);
         tvDateParasites = findViewById(R.id.tvDateParasites);
@@ -266,13 +254,7 @@ public class NewPet extends AppCompatActivity {
             e.printStackTrace();
         }
 
-        ll1.setVisibility(View.GONE);
-        ll2.setVisibility(View.GONE);
-
-        fragmentManager.beginTransaction().show(fragmentManager.findFragmentById(R.id.fragment_newPet)).commit();
         if (MainActivity.POSITION == 9999) {
-            myText.showText("Saving pet...please wait...");
-
             Pet pet = new Pet();
 
             pet.setName(name);
@@ -305,13 +287,9 @@ public class NewPet extends AppCompatActivity {
                 public void handleFault(BackendlessFault fault) {
 
                     Toast.makeText(NewPet.this, "Error: " + fault.getMessage(), Toast.LENGTH_SHORT).show();
-                    fragmentManager.beginTransaction().hide(fragmentManager.findFragmentById(R.id.fragment_newPet)).commit();
-                    ll1.setVisibility(View.VISIBLE);
-                    ll2.setVisibility(View.VISIBLE);
                 }
             });
         } else {
-            myText.showText("Updating pet...please wait...");
 
             ApplicationClass.pets.get(MainActivity.POSITION).setName(etName.getText().toString().trim());
             ApplicationClass.pets.get(MainActivity.POSITION).setType(petType);
@@ -343,9 +321,6 @@ public class NewPet extends AppCompatActivity {
                 public void handleFault(BackendlessFault fault) {
 
                     Toast.makeText(NewPet.this, "Error: " + fault.getMessage(), Toast.LENGTH_SHORT).show();
-                    fragmentManager.beginTransaction().hide(fragmentManager.findFragmentById(R.id.fragment_newPet)).commit();
-                    ll1.setVisibility(View.VISIBLE);
-                    ll2.setVisibility(View.VISIBLE);
                 }
             });
         }

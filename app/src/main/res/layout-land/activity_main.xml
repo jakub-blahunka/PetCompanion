@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:gravity="center"
-    android:id="@+id/layoutPortrait"
+    android:id="@+id/layoutLand"
     android:orientation="vertical">
 
     <LinearLayout
@@ -19,7 +19,7 @@
             android:name="org.jaku8ka.petcompanion.PetsListFragment"
             android:layout_width="0dp"
             android:layout_height="match_parent"
-            android:layout_weight="1"
+            android:layout_weight="2"
             tools:layout="@layout/fragment_pets_list" />
 
         <fragment
@@ -27,7 +27,7 @@
             android:name="org.jaku8ka.petcompanion.PetListDetailFragment"
             android:layout_width="0dp"
             android:layout_height="match_parent"
-            android:layout_weight="2"
+            android:layout_weight="3"
             tools:layout="@layout/fragment_pet_list_detail" />
     </LinearLayout>
 
@@ -36,7 +36,7 @@
         android:name="org.jaku8ka.petcompanion.ButtonsFragment"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="1"
+        android:layout_weight="1.5"
         tools:layout="@layout/fragment_buttons" />
 
 </LinearLayout>
