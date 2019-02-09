@@ -1,14 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 
-    <android.support.constraint.ConstraintLayout
-        xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:app="http://schemas.android.com/apk/res-auto"
-        xmlns:tools="http://schemas.android.com/tools"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="vertical"
-        android:background="@color/colorPrimaryLight"
-        tools:context=".MainActivity">
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".MainActivity">
 
     <fragment
         android:id="@+id/fragment_main"
@@ -21,13 +19,12 @@
         app:layout_constraintTop_toTopOf="parent"
         tools:layout="@layout/fragment_loading" />
 
-        <ListView
+    <ListView
         android:id="@+id/lvList"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_marginTop="8dp"
         android:layout_marginBottom="16dp"
-        android:background="@color/colorPrimaryLight"
         android:clickable="true"
         android:padding="15dp"
         app:layout_constraintBottom_toTopOf="@+id/linearLayout"
@@ -36,13 +33,13 @@
         app:layout_constraintTop_toTopOf="parent">
 
 
-        </ListView>
+    </ListView>
 
     <LinearLayout
         android:id="@+id/linearLayout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@color/colorAccent"
+        android:background="@color/colorPrimaryLight"
         android:gravity="center"
         android:orientation="horizontal"
         app:layout_constraintBottom_toBottomOf="parent"
