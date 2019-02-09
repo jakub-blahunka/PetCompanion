@@ -1,6 +1,7 @@
 package org.jaku8ka.petcompanion;
 
 
+import android.app.ActionBar;
 import android.content.DialogInterface;
 import android.content.Intent;
 
@@ -12,8 +13,13 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.ListView;
 
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.backendless.Backendless;
@@ -112,6 +118,17 @@ public class MainActivity extends AppCompatActivity implements ItemSelected {
                     .show(fragmentManager.findFragmentById(R.id.fragmentButtons))
                     .show(fragmentManager.findFragmentById(R.id.fragmentList))
                     .commit();
+            ImageView imageView = findViewById(R.id.ivPet);
+            imageView.getLayoutParams().height = 0;
+
+            LinearLayout.LayoutParams layoutParams= new LinearLayout.LayoutParams(
+                    LinearLayout.LayoutParams.WRAP_CONTENT,
+                    LinearLayout.LayoutParams.MATCH_PARENT
+            );
+            layoutParams.setMargins(8,0,0,0);
+            TextView textView = findViewById(R.id.tv_name);
+            textView.setLayoutParams(layoutParams);
+            textView.getLayoutParams().height = 0;
         }
 
     }
