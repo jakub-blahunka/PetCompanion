@@ -1,37 +1,30 @@
 package org.jaku8ka.petcompanion;
 
-import android.animation.Animator;
-import android.animation.AnimatorListenerAdapter;
+
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.graphics.Color;
+
 import android.support.v4.app.FragmentManager;
-import android.support.v7.app.ActionBar;
+
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.View;
-import android.view.animation.Animation;
-import android.view.animation.AnimationUtils;
-import android.widget.AbsListView;
-import android.widget.AdapterView;
-import android.widget.Button;
-import android.widget.ImageView;
+
 import android.widget.ListView;
-import android.widget.TextView;
+
 import android.widget.Toast;
 
 import com.backendless.Backendless;
-import com.backendless.BackendlessUser;
+
 import com.backendless.async.callback.AsyncCallback;
 import com.backendless.exceptions.BackendlessFault;
 import com.backendless.persistence.DataQueryBuilder;
 
 import java.util.List;
 
-public class MainActivity extends AppCompatActivity implements ItemSelected{
+public class MainActivity extends AppCompatActivity implements ItemSelected {
 
     private FragmentRefreshListener fragmentRefreshListener;
     PetsAdapter adapter;
@@ -66,9 +59,36 @@ public class MainActivity extends AppCompatActivity implements ItemSelected{
 
                 POSITION = 9999;
 
-                if(findViewById(R.id.layoutPortrait) == null){
-                    if(!response.isEmpty()) {
+                if (findViewById(R.id.layoutPortrait) == null) {
+                    if (!response.isEmpty()) {
                         onItemSelected(0);
+                    }
+                }
+
+                if (findViewById(R.id.layoutLand) == null) {
+                    if (response.isEmpty()) {
+                        AlertDialog.Builder dialog = new AlertDialog.Builder(MainActivity.this);
+                        dialog.setMessage("You have not entered any data, please add new pets with plus sign");
+                        dialog.setPositiveButton("I got it!", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialogInterface, int i) {
+
+                            }
+                        });
+                        dialog.show();
+                    }
+                } else if (findViewById(R.id.layoutPortrait) == null) {
+                    if (response.isEmpty()) {
+                        fragmentManager.beginTransaction().hide(fragmentManager.findFragmentById(R.id.fragmentDetail)).commit();
+                        AlertDialog.Builder dialog = new AlertDialog.Builder(MainActivity.this);
+                        dialog.setMessage("You have not entered any data, please add new pets with plus sign");
+                        dialog.setPositiveButton("I got it!", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialogInterface, int i) {
+
+                            }
+                        });
+                        dialog.show();
                     }
                 }
             }
@@ -80,13 +100,13 @@ public class MainActivity extends AppCompatActivity implements ItemSelected{
             }
         });
         fragmentManager = getSupportFragmentManager();
-        if(findViewById(R.id.layoutPortrait) != null) {
+        if (findViewById(R.id.layoutPortrait) != null) {
             fragmentManager.beginTransaction()
                     .hide(fragmentManager.findFragmentById(R.id.fragmentDetail))
                     .hide(fragmentManager.findFragmentById(R.id.fragmentButtons))
                     .show(fragmentManager.findFragmentById(R.id.fragmentList))
                     .commit();
-        } else  {
+        } else {
             fragmentManager.beginTransaction()
                     .show(fragmentManager.findFragmentById(R.id.fragmentDetail))
                     .show(fragmentManager.findFragmentById(R.id.fragmentButtons))
@@ -100,11 +120,11 @@ public class MainActivity extends AppCompatActivity implements ItemSelected{
     public void onItemSelected(int index) {
         POSITION = index;
 
-        if(getFragmentRefreshListener() != null) {
+        if (getFragmentRefreshListener() != null) {
             getFragmentRefreshListener().onRefresh();
         }
 
-        if(findViewById(R.id.layoutPortrait) != null) {
+        if (findViewById(R.id.layoutPortrait) != null) {
 
             fragmentManager.beginTransaction()
                     .show(fragmentManager.findFragmentById(R.id.fragmentDetail))
@@ -113,7 +133,7 @@ public class MainActivity extends AppCompatActivity implements ItemSelected{
                     .addToBackStack(null)
                     .commit();
         } else {
-            for(int i = 0; i < ApplicationClass.pets.size(); i++) {
+            for (int i = 0; i < ApplicationClass.pets.size(); i++) {
                 ApplicationClass.pets.get(i).setSelected(false);
             }
             ApplicationClass.pets.get(index).setSelected(true);
@@ -146,8 +166,7 @@ public class MainActivity extends AppCompatActivity implements ItemSelected{
                 startActivity(new Intent(MainActivity.this, NewPet.class));
                 return true;
             case R.id.action_info:
-                //TODO: implement info class
-                startActivity(new Intent(MainActivity.this, Information.class));
+                startActivity(new Intent(MainActivity.this, SlidePagerInfoActivity.class));
                 return true;
             case R.id.action_logout:
                 Backendless.UserService.logout(new AsyncCallback<Void>() {
@@ -169,8 +188,8 @@ public class MainActivity extends AppCompatActivity implements ItemSelected{
             default:
                 return super.onOptionsItemSelected(item);
         }
-
     }
+
     public void dataChanged() {
         adapter.notifyDataSetChanged();
     }

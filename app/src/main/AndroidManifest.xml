@@ -29,7 +29,12 @@
                 android:value=".MainActivity" />
         </activity>
         <activity android:name=".Register" />
-        <activity android:name=".Information"></activity>
+        <activity android:name=".SlidePagerInfoActivity"
+            android:parentActivityName="org.jaku8ka.petcompanion.MainActivity" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="org.jaku8ka.petcompanion.MainActivity" />
+        </activity>
     </application>
 
 </manifest>

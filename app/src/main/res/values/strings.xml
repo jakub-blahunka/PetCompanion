@@ -24,7 +24,58 @@
         <item>24 months</item>
     </string-array>
 
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="cat">Cat</string>
+    <string name="dog">Dog</string>
+    <string name="rabbit">Rabbit</string>
+
+    <string name="attention_cat">Ochorenia, proti ktorým je možné vakcinovať mačky</string>
+
+    <string name="cat_info_head_1">Panleukopénia</string>
+    <string name="cat_info_body_1">Je akútne, infekčné ochorenie mačiek, ktoré sa pre svoj ťažký priebeh nazýva aj mor mačiek.</string>
+    <string name="cat_info_head_2">Rinotracheitída</string>
+    <string name="cat_info_body_2">Vírusové ochorenie mačiek, ktoré sa prejavuje nádchou, zápalom priedušnice a spojiviek.</string>
+    <string name="cat_info_head_3">Kaliciviróza</string>
+    <string name="cat_info_body_3">Vírusové ochorenie mačiek, ktoré sa prejavuje nádchou, zápalom ústnej dutiny a spojiviek.</string>
+    <string name="cat_info_head_4">Infekčná peritonitída mačiek</string>
+    <string name="cat_info_body_4">Je vírusové ochorenie mačiek, ktoré sa prejavuje zápalom pobrušnice a ktoré spôsobuje smrť.</string>
+    <string name="cat_info_head_5">Vírus imunodeficiencie mačiek</string>
+    <string name="cat_info_body_5">Je vírusové ochorenie mačiek, ktoré spôsobuje zlyhanie imunitného systému. Ochorenie trvá niekoľko mesiacov až rok a mačka podľahne bežným infekciám.</string>
+    <string name="cat_info_head_6">Leukémia mačiek</string>
+    <string name="cat_info_body_6">Je vírusové ochorenie mačiek, ktoré spôsobuje zlyhanie funkcie kostnej drene a vznik nádorov.</string>
+    <string name="cat_info_head_7">Besnota</string>
+    <string name="cat_info_body_7">Je akútne vírusové infekčné ochorenie, ktoré je zo zvierat prenosné aj na človeka. Toto ochorenie postihuje predovšetkým centrálnu nervovoú sústavu a je smrteľné. Povinnosť vakcinovať mäsožravce proti besnote je daná zákonom.</string>
+    <string name="cat_info_head_8">Borelióza</string>
+    <string name="cat_info_body_8">Lymská choroba (borelióza) je infekčné ochorenie ľudí a zvierat. V posledných rokoch je kliešťami najčastejšie prenášanou chorobou. Postihuje pohybový aparát, kožu, srdce a nervový systém.</string>
+    <string name="cat_info_head_9">Chlamydióza</string>
+    <string name="cat_info_body_9">Bakteriálne ochorenie, ktoré spôsobuje zápal spojiviek, nosnej dutiny a hrtana. Ochorenie je prenosné aj na ľudí.</string>
+
+
+    <string name="attention_dog">Ochorenia, proti ktorým je možné vakcinovať psy</string>
+
+    <string name="dog_info_head_1">Psinka</string>
+    <string name="dog_info_body_1">Je vírusové infekčné ochorenie, ktoré spôsobuje zápal žalúdka, čriev, pľúc a nervovej sústavy a často končí úhynom. Najčastejšie bývajú napadnuté šteňatá a mladé psy do jedného roku, nevyhýba sa však ani starším psom.</string>
+    <string name="dog_info_head_2">Parvoviróza</string>
+    <string name="dog_info_body_2">Je vysoko nákazlivé vírusové ochorenie mladých psov do jedného roka, prejavujúce sa krvavou hnačkou, veľmi často končiace úhynom postihnutého zvieraťa.</string>
+    <string name="dog_info_head_3">Koranaviróza</string>
+    <string name="dog_info_body_3">Je akútne hnačkové ochorenie vírusového pôvodu, ktoré sa vyskytuje prevažne u mladých psov do jedného roku veku.</string>
+    <string name="dog_info_head_4">Infekčný zápal pečene</string>
+    <string name="dog_info_body_4">Čiže infekčná hepatidída je prudké vírusové ochorenie. Napáda psov v každom veku.</string>
+    <string name="dog_info_head_5">Leptospiróza</string>
+    <string name="dog_info_body_5">Je bakteriálne infekčné ochorenie, vyvolané niekoľkými druhmi leptospír, z ktorých niektoré sú prenosné aj na človeka. Napáda pečeň alebo obličky.</string>
+    <string name="dog_info_head_6">Besnota</string>
+    <string name="dog_info_body_6">Je akútne vírusové infekčné ochorenie, ktoré je zo zvierat prenosné aj na človeka. Toto ochorenie postihuje predovšetkým centrálnu nervovoú sústavu a je smrteľné. Povinnosť vakcinovať mäsožravce proti besnote je daná zákonom.</string>
+    <string name="dog_info_head_7">Herpesviróza</string>
+    <string name="dog_info_body_7">Je akútne vírusové ochorenie, ktoré spôsobuje u novorodených šteniat náhle úhyny a u dospelých jedincov ochorenie horných dýchacích ciest, pohlavných orgánov alebo oka.</string>
+    <string name="dog_info_head_8">Infekčný (kotercový) kašeľ</string>
+    <string name="dog_info_body_8">Je akútne, vysoko infekčné ochorenie psov. Na jeho vzniku sa podieľa najčastejšie vírus chrípky adenovírus a baktéria bordetella, ktorá však napáda väčšinou organizmus už zasiahnutý vírusom.</string>
+    <string name="dog_info_head_9">Borelióza</string>
+    <string name="dog_info_body_9">Lymská choroba (borelióza) je infekčné ochorenie ľudí a zvierat. V posledných rokoch je kliešťami najčastejšie prenášanou chorobou. Postihuje pohybový aparát, kožu, srdce a nervový systém.</string>
+
+    <string name="attention_rabbit">Ochorenia, proti ktorým je možné vakcinovať králiky</string>
+
+    <string name="rabbit_info_head_1">Tularémia</string>
+    <string name="rabbit_info_body_1">Na vírusovú hemoragickú septikémiu (zajačí mor) zomierajú králiky do jedného až dvoch dní. Králik je najprv ospalý, stratí plachosť, neskôr prestane papať a môže stáčať hlavu na bok. Sprievodným javom je tiež zvýšená teplota.</string>
+    <string name="rabbit_info_head_2">Myxomatóza</string>
+    <string name="rabbit_info_body_2">Tento vírus spôsobuje uzlíky na hlave, opuchy, ale môže spôsobovať aj pľúcne problémy. Väčšina postihnutých králikov umiera. Tak isto ako u zajačieho moru, patrí k hlavným šíriteľom choroby bodavý hmyz.</string>
 
 </resources>
