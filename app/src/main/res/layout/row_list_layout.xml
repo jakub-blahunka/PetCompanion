@@ -23,6 +23,8 @@
         android:layout_gravity="center_vertical"
         android:layout_marginLeft="40dp"
         android:text="Name"
+        android:ellipsize="end"
+        android:maxLines="1"
         android:textColor="@color/colorText"
         android:textSize="32sp"
         android:textStyle="bold" />

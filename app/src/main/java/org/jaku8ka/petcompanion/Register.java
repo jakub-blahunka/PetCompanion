@@ -53,8 +53,14 @@ public class Register extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 AlertDialog.Builder dialog = new AlertDialog.Builder(Register.this);
-                dialog.setMessage("GDPR STUPID STUFF I CANNOT FIND");
-                dialog.setPositiveButton("WHATEVER", new DialogInterface.OnClickListener() {
+                dialog.setMessage("Your personal data will be processed based on General Data Protection Regulation");
+                dialog.setPositiveButton("I agree", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+                        cbGDPR.setChecked(true);
+                    }
+                });
+                dialog.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialogInterface, int i) {
 
