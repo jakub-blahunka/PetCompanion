@@ -1,33 +1,25 @@
 package org.jaku8ka.petcompanion;
 
-
-import android.app.ActionBar;
 import android.content.DialogInterface;
 import android.content.Intent;
-
+import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.FragmentManager;
-
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
-
 import android.view.View;
-import android.view.ViewGroup;
+import android.view.animation.Animation;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
-
 import android.widget.TextView;
 import android.widget.Toast;
-
 import com.backendless.Backendless;
-
 import com.backendless.async.callback.AsyncCallback;
 import com.backendless.exceptions.BackendlessFault;
 import com.backendless.persistence.DataQueryBuilder;
-
 import java.util.List;
 
 public class MainActivity extends AppCompatActivity implements ItemSelected {
@@ -130,7 +122,7 @@ public class MainActivity extends AppCompatActivity implements ItemSelected {
             textView.setLayoutParams(layoutParams);
             textView.getLayoutParams().height = 0;
         }
-
+        NotificationScheduler.createNotificationChannel(this);
     }
 
     @Override

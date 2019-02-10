@@ -10,13 +10,24 @@ import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Collections;
+import java.util.Date;
 import java.util.List;
+import java.util.Locale;
+import java.util.NoSuchElementException;
 
 public class PetsAdapter extends ArrayAdapter<Pet> {
 
     private Context context;
     private List<Pet> pets;
+    private ArrayList<Long> mDate = new ArrayList<>();
+    private ArrayList<String> mName = new ArrayList<>();
 
     public PetsAdapter(Context context, List<Pet> list) {
 
@@ -32,7 +43,7 @@ public class PetsAdapter extends ArrayAdapter<Pet> {
         View view = convertView;
         ViewHolder holder;
 
-        if(view == null) {
+        if (view == null) {
             LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
             view = inflater.inflate(R.layout.row_list_layout, parent, false);
 
@@ -65,16 +76,51 @@ public class PetsAdapter extends ArrayAdapter<Pet> {
                 break;
         }
 
-        if(pets.get(position).getSelected()){
+        if (pets.get(position).getSelected()) {
             view.setBackgroundResource(R.drawable.selected);
         } else {
             view.setBackgroundResource(R.drawable.pressed);
         }
 
+        Calendar calendar = Calendar.getInstance();
+        long todayDate = calendar.getTimeInMillis();
+
+        try {
+            if (todayDate <= ApplicationClass.pets.get(position).getNextParasites().getTime()) {
+                mDate.add(ApplicationClass.pets.get(position).getNextParasites().getTime());
+                mName.add(ApplicationClass.pets.get(position).getName());
+            }
+        } catch (NullPointerException e) {
+            e.printStackTrace();
+        }
+
+        try {
+            if (todayDate <= ApplicationClass.pets.get(position).getNextVaccination().getTime()) {
+                mDate.add(ApplicationClass.pets.get(position).getNextVaccination().getTime());
+                mName.add(ApplicationClass.pets.get(position).getName());
+            }
+        } catch (NullPointerException e) {
+            e.printStackTrace();
+        }
+
+        try {
+            int minIndex = mDate.indexOf(Collections.min(mDate));
+            long finalDate = mDate.get(minIndex);
+            String name = mName.get(minIndex);
+
+            if (todayDate <= finalDate) {
+                NotificationScheduler.scheduleNotification(context, finalDate + 3600 * 8000, name);
+            }
+        } catch (NullPointerException e) {
+            e.printStackTrace();
+        } catch (NoSuchElementException e) {
+            e.printStackTrace();
+        }
+
         return view;
     }
 
-    private static class ViewHolder{
+    private static class ViewHolder {
         public ImageView pet;
         public TextView name;
     }
