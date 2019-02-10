@@ -28,54 +28,53 @@
     <string name="dog">Dog</string>
     <string name="rabbit">Rabbit</string>
 
-    <string name="attention_cat">Ochorenia, proti ktorým je možné vakcinovať mačky</string>
+    <string name="attention_cat">Diseases against which cats can be vaccinated</string>
 
-    <string name="cat_info_head_1">Panleukopénia</string>
-    <string name="cat_info_body_1">Je akútne, infekčné ochorenie mačiek, ktoré sa pre svoj ťažký priebeh nazýva aj mor mačiek.</string>
-    <string name="cat_info_head_2">Rinotracheitída</string>
-    <string name="cat_info_body_2">Vírusové ochorenie mačiek, ktoré sa prejavuje nádchou, zápalom priedušnice a spojiviek.</string>
-    <string name="cat_info_head_3">Kaliciviróza</string>
-    <string name="cat_info_body_3">Vírusové ochorenie mačiek, ktoré sa prejavuje nádchou, zápalom ústnej dutiny a spojiviek.</string>
-    <string name="cat_info_head_4">Infekčná peritonitída mačiek</string>
-    <string name="cat_info_body_4">Je vírusové ochorenie mačiek, ktoré sa prejavuje zápalom pobrušnice a ktoré spôsobuje smrť.</string>
-    <string name="cat_info_head_5">Vírus imunodeficiencie mačiek</string>
-    <string name="cat_info_body_5">Je vírusové ochorenie mačiek, ktoré spôsobuje zlyhanie imunitného systému. Ochorenie trvá niekoľko mesiacov až rok a mačka podľahne bežným infekciám.</string>
-    <string name="cat_info_head_6">Leukémia mačiek</string>
-    <string name="cat_info_body_6">Je vírusové ochorenie mačiek, ktoré spôsobuje zlyhanie funkcie kostnej drene a vznik nádorov.</string>
-    <string name="cat_info_head_7">Besnota</string>
-    <string name="cat_info_body_7">Je akútne vírusové infekčné ochorenie, ktoré je zo zvierat prenosné aj na človeka. Toto ochorenie postihuje predovšetkým centrálnu nervovoú sústavu a je smrteľné. Povinnosť vakcinovať mäsožravce proti besnote je daná zákonom.</string>
-    <string name="cat_info_head_8">Borelióza</string>
-    <string name="cat_info_body_8">Lymská choroba (borelióza) je infekčné ochorenie ľudí a zvierat. V posledných rokoch je kliešťami najčastejšie prenášanou chorobou. Postihuje pohybový aparát, kožu, srdce a nervový systém.</string>
-    <string name="cat_info_head_9">Chlamydióza</string>
-    <string name="cat_info_body_9">Bakteriálne ochorenie, ktoré spôsobuje zápal spojiviek, nosnej dutiny a hrtana. Ochorenie je prenosné aj na ľudí.</string>
+    <string name="cat_info_head_1">Panleucopenia</string>
+    <string name="cat_info_body_1">It is an acute, infectious disease of cats, which, for its difficult course, is also called cat plague.</string>
+    <string name="cat_info_head_2">Rhinotracheitis</string>
+    <string name="cat_info_body_2">Viral disease of cats, which is manifested by spasm, inflammation of the trachea and conjunctiva.</string>
+    <string name="cat_info_head_3">Kalicivirosis</string>
+    <string name="cat_info_body_3">Viral disease of cats, which is manifested by cold, inflammation of the oral cavity and conjunctiva.</string>
+    <string name="cat_info_head_4">Infectious cat peritonitis</string>
+    <string name="cat_info_body_4">It is a viral disease of cats, which is manifested by inflammation of the peritoneum and causing death.</string>
+    <string name="cat_info_head_5">Cat immunodeficiency virus</string>
+    <string name="cat_info_body_5">It is a viral cat disease that causes the immune system to fail. The illness lasts for several months to a year, and the cat could undergone to common infections.</string>
+    <string name="cat_info_head_6">Cat leukemia</string>
+    <string name="cat_info_body_6">It is a viral cat disease that causes bone marrow failure and the development of tumors.</string>
+    <string name="cat_info_head_7">Rabies</string>
+    <string name="cat_info_body_7">It is an acute viral infectious disease that is also transmissible to humans. This disease mainly affects the central nervous system and is fatal. The obligation to vaccinate carnivores against rabies is the law.</string>
+    <string name="cat_info_head_8">Lyme disease</string>
+    <string name="cat_info_body_8">Or Borreliosis is an infectious disease of humans and animals. In recent years ticks have been the most commonly transmitted disease. It affects the locomotory system, the skin, the heart and the nervous system.</string>
+    <string name="cat_info_head_9">Chlamydiosis</string>
+    <string name="cat_info_body_9"> Bacterial disease that causes inflammation of conjunctiva, nasal cavity and larynx. The disease is also transmissible to humans. </string>
 
+    <string name = "attention_dog"> Disease against which dogs can be vaccinated </string>
 
-    <string name="attention_dog">Ochorenia, proti ktorým je možné vakcinovať psy</string>
+    <string name="dog_info_head_1">Distemper</string>
+    <string name="dog_info_body_1">It is a viral infectious disease that causes inflammation of the stomach, intestines, lungs and nervous system and often ends with death. Most often puppies and young dogs are invaded within one year, but they do not avoid even older dogs. </string>
+    <string name="dog_info_head_2">Parvovirus</string>
+    <string name="dog_info_body_2">High infectious viral disease of young dogs within one year, manifested by bloody diarrhea, very often ending with the mortality of the affected animal.</string>
+    <string name="dog_info_head_3">Koranavirosis</string>
+    <string name="dog_info_body_3">It is an acute diarrhea of viral origin, which occurs predominantly in young dogs under one year of age.</string>
+    <string name="dog_info_head_4">Infectious hepatitis</string>
+    <string name="dog_info_body_4">Thus, infectious hepatitis is a severe viral disease. It attacks dogs at all ages.</string>
+    <string name="dog_info_head_5">Leptospirosis</string>
+    <string name="dog_info_body_5">It is a bacterial infectious disease caused by several types of leptosphere, some of which are transmissible to humans as well. It attacks the liver or kidneys.</string>
+    <string name="dog_info_head_6">Rabies</string>
+    <string name="dog_info_body_6">It is an acute viral infectious disease that is also transmissible to humans. This disease mainly affects the central nervous system and is fatal. The obligation to vaccinate carnivores against rabies is the law.</string>
+    <string name="dog_info_head_7">Herpes</string>
+    <string name="dog_info_body_7">It is an acute viral disease that causes sudden deaths in newborn puppies, and upper respiratory tract, genital or eye disease in adults.</string>
+    <string name="dog_info_head_8">Infectious cough</string>
+    <string name="dog_info_body_8">It is an acute, highly infectious disease of dogs. The most common form of influenza viruses is adenovirus and bordetella, but it attacks most of the organism already affected by the virus.</string>
+    <string name="dog_info_head_9">Lyme disease</string>
+    <string name="dog_info_body_9">Lyme disease or Borreliosis is an infectious disease of humans and animals. In recent years ticks have been the most commonly transmitted disease. It affects the locomotory system, the skin, the heart and the nervous system.</string>
 
-    <string name="dog_info_head_1">Psinka</string>
-    <string name="dog_info_body_1">Je vírusové infekčné ochorenie, ktoré spôsobuje zápal žalúdka, čriev, pľúc a nervovej sústavy a často končí úhynom. Najčastejšie bývajú napadnuté šteňatá a mladé psy do jedného roku, nevyhýba sa však ani starším psom.</string>
-    <string name="dog_info_head_2">Parvoviróza</string>
-    <string name="dog_info_body_2">Je vysoko nákazlivé vírusové ochorenie mladých psov do jedného roka, prejavujúce sa krvavou hnačkou, veľmi často končiace úhynom postihnutého zvieraťa.</string>
-    <string name="dog_info_head_3">Koranaviróza</string>
-    <string name="dog_info_body_3">Je akútne hnačkové ochorenie vírusového pôvodu, ktoré sa vyskytuje prevažne u mladých psov do jedného roku veku.</string>
-    <string name="dog_info_head_4">Infekčný zápal pečene</string>
-    <string name="dog_info_body_4">Čiže infekčná hepatidída je prudké vírusové ochorenie. Napáda psov v každom veku.</string>
-    <string name="dog_info_head_5">Leptospiróza</string>
-    <string name="dog_info_body_5">Je bakteriálne infekčné ochorenie, vyvolané niekoľkými druhmi leptospír, z ktorých niektoré sú prenosné aj na človeka. Napáda pečeň alebo obličky.</string>
-    <string name="dog_info_head_6">Besnota</string>
-    <string name="dog_info_body_6">Je akútne vírusové infekčné ochorenie, ktoré je zo zvierat prenosné aj na človeka. Toto ochorenie postihuje predovšetkým centrálnu nervovoú sústavu a je smrteľné. Povinnosť vakcinovať mäsožravce proti besnote je daná zákonom.</string>
-    <string name="dog_info_head_7">Herpesviróza</string>
-    <string name="dog_info_body_7">Je akútne vírusové ochorenie, ktoré spôsobuje u novorodených šteniat náhle úhyny a u dospelých jedincov ochorenie horných dýchacích ciest, pohlavných orgánov alebo oka.</string>
-    <string name="dog_info_head_8">Infekčný (kotercový) kašeľ</string>
-    <string name="dog_info_body_8">Je akútne, vysoko infekčné ochorenie psov. Na jeho vzniku sa podieľa najčastejšie vírus chrípky adenovírus a baktéria bordetella, ktorá však napáda väčšinou organizmus už zasiahnutý vírusom.</string>
-    <string name="dog_info_head_9">Borelióza</string>
-    <string name="dog_info_body_9">Lymská choroba (borelióza) je infekčné ochorenie ľudí a zvierat. V posledných rokoch je kliešťami najčastejšie prenášanou chorobou. Postihuje pohybový aparát, kožu, srdce a nervový systém.</string>
+    <string name="attention_rabbit">Diseases against which rabbits can be vaccinated</string>
 
-    <string name="attention_rabbit">Ochorenia, proti ktorým je možné vakcinovať králiky</string>
-
-    <string name="rabbit_info_head_1">Tularémia</string>
-    <string name="rabbit_info_body_1">Na vírusovú hemoragickú septikémiu (zajačí mor) zomierajú králiky do jedného až dvoch dní. Králik je najprv ospalý, stratí plachosť, neskôr prestane papať a môže stáčať hlavu na bok. Sprievodným javom je tiež zvýšená teplota.</string>
-    <string name="rabbit_info_head_2">Myxomatóza</string>
-    <string name="rabbit_info_body_2">Tento vírus spôsobuje uzlíky na hlave, opuchy, ale môže spôsobovať aj pľúcne problémy. Väčšina postihnutých králikov umiera. Tak isto ako u zajačieho moru, patrí k hlavným šíriteľom choroby bodavý hmyz.</string>
+    <string name="rabbit_info_head_1">Tularemia</string>
+    <string name="rabbit_info_body_1">Viral hemorrhagic septicemia (the rabbit plague) kills rabbits within one to two days. The Rabbit is sleepy at first, losing his shyness, then refuses to eat and turning his head to the side. A concomitant phenomenon is also an elevated temperature.</string>
+    <string name="rabbit_info_head_2">Myxomatosis</string>
+    <string name="rabbit_info_body_2">This virus causes nodules on the head, swelling, but can also cause lung problems. Most affected rabbits die. As with the rabbit plague, insect bites are the main spread of the disease.</string>
 
 </resources>
