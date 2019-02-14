@@ -24,7 +24,8 @@
         </receiver>
         <activity android:name=".MainActivity" />
 
-        <activity android:name=".Login">
+        <activity android:name=".Login"
+            android:windowSoftInputMode="stateHidden">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -34,12 +35,14 @@
         <activity
             android:name=".NewPet"
             android:label="Pet information"
+            android:windowSoftInputMode="stateHidden"
             android:parentActivityName=".MainActivity">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".MainActivity" />
         </activity>
-        <activity android:name=".Register" />
+        <activity android:name=".Register"
+            android:windowSoftInputMode="stateHidden"/>
         <activity android:name=".SlidePagerInfoActivity"
             android:parentActivityName="org.jaku8ka.petcompanion.MainActivity" >
             <meta-data

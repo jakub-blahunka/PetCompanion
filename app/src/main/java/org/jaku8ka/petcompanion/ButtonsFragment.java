@@ -60,6 +60,7 @@ public class ButtonsFragment extends Fragment {
                         public void onAnimationEnd(Animation animation) {
 
                             startActivity(new Intent(getContext(), NewPet.class));
+                            ivEdit.clearAnimation();
                         }
 
                         @Override

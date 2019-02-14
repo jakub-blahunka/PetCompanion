@@ -103,7 +103,7 @@
                 android:layout_marginStart="8dp"
                 android:layout_weight="1"
                 android:gravity="start"
-                android:text="Last parasites"
+                android:text="Last worms prevention"
                 android:textColor="@color/colorText" />
 
             <TextView
@@ -113,7 +113,7 @@
                 android:layout_marginEnd="8dp"
                 android:layout_weight="1"
                 android:gravity="end"
-                android:text="Next parasites"
+                android:text="Next worm prevention"
                 android:textColor="@color/colorText" />
 
         </LinearLayout>

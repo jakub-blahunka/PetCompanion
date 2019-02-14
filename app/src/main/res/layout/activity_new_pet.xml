@@ -111,29 +111,38 @@
                     android:textColor="@color/colorText"
                     android:textSize="14sp" />
 
-                <TextView
-                    android:id="@+id/tvDateBirth"
+                <LinearLayout
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:layout_gravity="center_vertical|end"
-                    android:layout_margin="8dp"
                     android:layout_weight="4"
-                    android:clickable="true"
-                    android:gravity="end"
-                    android:hint="Choose date"
-                    android:longClickable="false"
-                    android:textColor="@color/colorPrimary"
-                    android:textSize="12sp" />
+                    android:orientation="horizontal"
+                    android:gravity="end">
 
-                <Button
-                    android:id="@+id/add_pet_birth"
-                    android:layout_width="0dp"
-                    android:layout_height="match_parent"
-                    android:layout_gravity="center_vertical|end"
-                    android:layout_marginEnd="8dp"
-                    android:layout_weight="1"
-                    android:background="@drawable/date"
-                    android:gravity="end" />
+                    <TextView
+                        android:id="@+id/tvDateBirth"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_vertical|end"
+                        android:layout_margin="8dp"
+                        android:clickable="true"
+                        android:gravity="end"
+                        android:hint="Choose date"
+                        android:longClickable="false"
+                        android:textColor="@color/colorPrimary"
+                        android:textSize="12sp" />
+
+                    <Button
+                        android:id="@+id/add_pet_birth"
+                        android:layout_width="36dp"
+                        android:layout_height="32dp"
+                        android:layout_gravity="center_vertical|end"
+                        android:layout_marginEnd="8dp"
+                        android:background="@drawable/date"
+                        android:gravity="end" />
+
+                </LinearLayout>
+
+
             </LinearLayout>
 
             <TextView
@@ -260,33 +269,41 @@
                     android:layout_gravity="center_vertical|start"
                     android:layout_margin="8dp"
                     android:layout_weight="4"
-                    android:text="Date of parasites"
+                    android:text="Worms prevention"
                     android:textColor="@color/colorText"
                     android:textSize="14sp" />
 
-                <TextView
-                    android:id="@+id/tvDateParasites"
+                <LinearLayout
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:layout_gravity="center_vertical|end"
-                    android:layout_margin="8dp"
                     android:layout_weight="4"
-                    android:clickable="true"
                     android:gravity="end"
-                    android:hint="Choose date"
-                    android:longClickable="false"
-                    android:textColor="@color/colorPrimary"
-                    android:textSize="12sp" />
+                    android:orientation="horizontal">
 
-                <Button
-                    android:id="@+id/add_pet_par"
-                    android:layout_width="0dp"
-                    android:layout_height="match_parent"
-                    android:layout_gravity="center_vertical|end"
-                    android:layout_marginEnd="8dp"
-                    android:layout_weight="1"
-                    android:background="@drawable/date"
-                    android:gravity="end" />
+                    <TextView
+                        android:id="@+id/tvDateParasites"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_vertical|end"
+                        android:layout_margin="8dp"
+                        android:clickable="true"
+                        android:gravity="end"
+                        android:hint="Choose date"
+                        android:longClickable="false"
+                        android:textColor="@color/colorPrimary"
+                        android:textSize="12sp" />
+
+                    <Button
+                        android:id="@+id/add_pet_par"
+                        android:layout_width="36dp"
+                        android:layout_height="32dp"
+                        android:layout_gravity="center_vertical|end"
+                        android:layout_marginEnd="8dp"
+                        android:background="@drawable/date"
+                        android:gravity="end" />
+                </LinearLayout>
+
+
             </LinearLayout>
 
             <TextView
@@ -305,7 +322,7 @@
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_vertical|start"
                     android:layout_margin="8dp"
-                    android:text="Parasites in"
+                    android:text="Next prevention in"
                     android:textColor="@color/colorText"
                     android:textSize="14sp" />
 
@@ -336,17 +353,23 @@
                     android:layout_gravity="center_vertical|start"
                     android:layout_margin="8dp"
                     android:layout_weight="4"
-                    android:text="Date of vaccination"
+                    android:text="Vaccination"
                     android:textColor="@color/colorText"
                     android:textSize="14sp" />
 
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="4"
+                    android:orientation="horizontal"
+                    android:gravity="end">
+
                 <TextView
                     android:id="@+id/tvDateVaccination"
-                    android:layout_width="0dp"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_vertical|end"
                     android:layout_margin="8dp"
-                    android:layout_weight="4"
                     android:clickable="true"
                     android:gravity="end"
                     android:hint="Choose date"
@@ -354,15 +377,16 @@
                     android:textColor="@color/colorPrimary"
                     android:textSize="12sp" />
 
-                <Button
-                    android:id="@+id/add_pet_vac"
-                    android:layout_width="0dp"
-                    android:layout_height="match_parent"
-                    android:layout_gravity="center_vertical|end"
-                    android:layout_marginEnd="8dp"
-                    android:layout_weight="1"
-                    android:background="@drawable/date"
-                    android:gravity="end" />
+                    <Button
+                        android:id="@+id/add_pet_vac"
+                        android:layout_width="36dp"
+                        android:layout_height="32dp"
+                        android:layout_gravity="center_vertical|end"
+                        android:layout_marginEnd="8dp"
+                        android:background="@drawable/date"
+                        android:gravity="end" />
+                    </LinearLayout>
+
             </LinearLayout>
 
             <TextView
@@ -381,7 +405,7 @@
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_vertical|start"
                     android:layout_margin="8dp"
-                    android:text="Vaccinate in"
+                    android:text="Next vaccination in"
                     android:textColor="@color/colorText"
                     android:textSize="14sp" />
 
