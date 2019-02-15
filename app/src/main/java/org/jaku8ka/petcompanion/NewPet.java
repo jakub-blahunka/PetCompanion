@@ -67,9 +67,6 @@ public class NewPet extends AppCompatActivity {
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.menu_new_pet, menu);
 
-        ActionBar actionBar = getSupportActionBar();
-        actionBar.setDisplayHomeAsUpEnabled(true);
-
         return true;
     }
 
@@ -377,5 +374,11 @@ public class NewPet extends AppCompatActivity {
         sParasites.setSelection(odcLoop);
         tvDateVaccination.setText(vacDate);
         sVaccination.setSelection(vacLoop);
+    }
+
+    @Override
+    public void onBackPressed() {
+        startActivity(new Intent(this, MainActivity.class));
+        NewPet.this.finish();
     }
 }
