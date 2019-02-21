@@ -16,10 +16,12 @@ import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
+
 import com.backendless.Backendless;
 import com.backendless.async.callback.AsyncCallback;
 import com.backendless.exceptions.BackendlessFault;
 import com.backendless.persistence.DataQueryBuilder;
+
 import java.util.List;
 
 public class MainActivity extends AppCompatActivity implements ItemSelected {
@@ -63,31 +65,16 @@ public class MainActivity extends AppCompatActivity implements ItemSelected {
                     }
                 }
 
-                if (findViewById(R.id.layoutLand) == null) {
-                    if (response.isEmpty()) {
-                        AlertDialog.Builder dialog = new AlertDialog.Builder(MainActivity.this);
-                        dialog.setMessage("You have not entered any data, please add new pets with plus sign");
-                        dialog.setPositiveButton("I got it!", new DialogInterface.OnClickListener() {
-                            @Override
-                            public void onClick(DialogInterface dialogInterface, int i) {
+                if (response.isEmpty()) {
+                    AlertDialog.Builder dialog = new AlertDialog.Builder(MainActivity.this);
+                    dialog.setMessage("You have not entered any data, please add new pets with plus sign");
+                    dialog.setPositiveButton("I got it!", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialogInterface, int i) {
 
-                            }
-                        });
-                        dialog.show();
-                    }
-                } else if (findViewById(R.id.layoutPortrait) == null) {
-                    if (response.isEmpty()) {
-                        fragmentManager.beginTransaction().hide(fragmentManager.findFragmentById(R.id.fragmentDetail)).commit();
-                        AlertDialog.Builder dialog = new AlertDialog.Builder(MainActivity.this);
-                        dialog.setMessage("You have not entered any data, please add new pets with plus sign");
-                        dialog.setPositiveButton("I got it!", new DialogInterface.OnClickListener() {
-                            @Override
-                            public void onClick(DialogInterface dialogInterface, int i) {
-
-                            }
-                        });
-                        dialog.show();
-                    }
+                        }
+                    });
+                    dialog.show();
                 }
             }
 
@@ -113,11 +100,11 @@ public class MainActivity extends AppCompatActivity implements ItemSelected {
             ImageView imageView = findViewById(R.id.ivPet);
             imageView.getLayoutParams().height = 0;
 
-            LinearLayout.LayoutParams layoutParams= new LinearLayout.LayoutParams(
+            LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(
                     LinearLayout.LayoutParams.WRAP_CONTENT,
                     LinearLayout.LayoutParams.MATCH_PARENT
             );
-            layoutParams.setMargins(8,0,0,0);
+            layoutParams.setMargins(8, 0, 0, 0);
             TextView textView = findViewById(R.id.tv_name);
             textView.setLayoutParams(layoutParams);
             textView.getLayoutParams().height = 0;

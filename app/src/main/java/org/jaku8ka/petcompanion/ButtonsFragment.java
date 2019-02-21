@@ -118,19 +118,24 @@ public class ButtonsFragment extends Fragment {
                                             if(getActivity().findViewById(R.id.layoutLand) != null) {
                                                 if(!ApplicationClass.pets.isEmpty()) {
                                                     ((MainActivity)getActivity()).onItemSelected(0);
-                                                } else {
-                                                    getFragmentManager().beginTransaction().hide(getFragmentManager().findFragmentById(R.id.fragmentDetail)).commit();
-                                                    AlertDialog.Builder dialog = new AlertDialog.Builder(getActivity());
-                                                    dialog.setMessage("You have not entered any data, please add new pets with plus sign");
-                                                    dialog.setPositiveButton("I got it!", new DialogInterface.OnClickListener() {
-                                                        @Override
-                                                        public void onClick(DialogInterface dialogInterface, int i) {
-
-                                                        }
-                                                    });
-                                                    dialog.show();
                                                 }
                                             }
+
+                                            if(ApplicationClass.pets.isEmpty()) {
+
+                                                getFragmentManager().beginTransaction().hide(getFragmentManager().findFragmentById(R.id.fragmentDetail)).commit();
+                                                AlertDialog.Builder dialog = new AlertDialog.Builder(getActivity());
+                                                dialog.setMessage("You have not entered any data, please add new pets with plus sign");
+                                                dialog.setPositiveButton("I got it!", new DialogInterface.OnClickListener() {
+                                                    @Override
+                                                    public void onClick(DialogInterface dialogInterface, int i) {
+
+                                                    }
+                                                });
+                                                dialog.show();
+
+                                            }
+
 
                                             MainActivity.POSITION = 9999;
                                         }
