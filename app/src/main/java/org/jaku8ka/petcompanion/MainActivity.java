@@ -66,6 +66,15 @@ public class MainActivity extends AppCompatActivity implements ItemSelected {
                 }
 
                 if (response.isEmpty()) {
+
+                    if(findViewById(R.id.layoutPortrait) == null) {
+                        fragmentManager.beginTransaction()
+                                .hide(fragmentManager.findFragmentById(R.id.fragmentDetail))
+                                .hide(fragmentManager.findFragmentById(R.id.fragmentButtons))
+                                .hide(fragmentManager.findFragmentById(R.id.fragmentList))
+                                .commit();
+                    }
+
                     AlertDialog.Builder dialog = new AlertDialog.Builder(MainActivity.this);
                     dialog.setMessage("You have not entered any data, please add new pets with plus sign");
                     dialog.setPositiveButton("I got it!", new DialogInterface.OnClickListener() {

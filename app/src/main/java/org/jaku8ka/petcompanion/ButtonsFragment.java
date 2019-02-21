@@ -119,6 +119,8 @@ public class ButtonsFragment extends Fragment {
                                                 if(!ApplicationClass.pets.isEmpty()) {
                                                     ((MainActivity)getActivity()).onItemSelected(0);
                                                 }
+                                                else
+                                                    getFragmentManager().beginTransaction().hide(getFragmentManager().findFragmentById(R.id.fragmentButtons)).commit();
                                             }
 
                                             if(ApplicationClass.pets.isEmpty()) {
