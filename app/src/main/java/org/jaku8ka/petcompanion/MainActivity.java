@@ -2,17 +2,17 @@ package org.jaku8ka.petcompanion;
 
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.NavigationView;
 import android.support.v4.app.FragmentManager;
+import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
+import android.support.v7.app.ActionBar;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.view.animation.Animation;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
@@ -121,8 +121,7 @@ public class MainActivity extends AppCompatActivity implements ItemSelected {
             textView.setLayoutParams(layoutParams);
             textView.getLayoutParams().height = 0;
         }
-        if(findViewById(R.id.layoutPortrait) != null)
-            setNavDrawer();
+        setNavDrawer();
         NotificationScheduler.createNotificationChannel(this);
     }
 
@@ -173,6 +172,7 @@ public class MainActivity extends AppCompatActivity implements ItemSelected {
                         return true;
                     }
                 });
+
     }
 
     @Override
@@ -211,6 +211,9 @@ public class MainActivity extends AppCompatActivity implements ItemSelected {
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.menu, menu);
+        ActionBar actionBar = getSupportActionBar();
+        actionBar.setDisplayHomeAsUpEnabled(true);
+        actionBar.setHomeAsUpIndicator(R.drawable.ic_menu);
 
         return super.onCreateOptionsMenu(menu);
     }
@@ -228,6 +231,11 @@ public class MainActivity extends AppCompatActivity implements ItemSelected {
             case R.id.action_add:
                 POSITION = 9999;
                 startActivity(new Intent(MainActivity.this, NewPet.class));
+                return true;
+            case android.R.id.home:
+                if(!drawerLayout.isDrawerOpen(GravityCompat.START))
+                    drawerLayout.openDrawer(GravityCompat.START);
+                else drawerLayout.closeDrawer(GravityCompat.START);
                 return true;
             default:
                 return super.onOptionsItemSelected(item);
