@@ -3,7 +3,9 @@ package org.jaku8ka.petcompanion;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.support.design.widget.FloatingActionButton;
+import android.support.design.widget.NavigationView;
 import android.support.v4.app.FragmentManager;
+import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -27,9 +29,10 @@ import java.util.List;
 public class MainActivity extends AppCompatActivity implements ItemSelected {
 
     private FragmentRefreshListener fragmentRefreshListener;
-    PetsAdapter adapter;
-    ListView lvPetsList;
-    FragmentManager fragmentManager;
+    private PetsAdapter adapter;
+    private ListView lvPetsList;
+    private FragmentManager fragmentManager;
+    private DrawerLayout drawerLayout;
 
     public static int POSITION = 9999;
 
@@ -67,7 +70,7 @@ public class MainActivity extends AppCompatActivity implements ItemSelected {
 
                 if (response.isEmpty()) {
 
-                    if(findViewById(R.id.layoutPortrait) == null) {
+                    if (findViewById(R.id.layoutPortrait) == null) {
                         fragmentManager.beginTransaction()
                                 .hide(fragmentManager.findFragmentById(R.id.fragmentDetail))
                                 .hide(fragmentManager.findFragmentById(R.id.fragmentButtons))
@@ -118,7 +121,58 @@ public class MainActivity extends AppCompatActivity implements ItemSelected {
             textView.setLayoutParams(layoutParams);
             textView.getLayoutParams().height = 0;
         }
+        if(findViewById(R.id.layoutPortrait) != null)
+            setNavDrawer();
         NotificationScheduler.createNotificationChannel(this);
+    }
+
+    private void setNavDrawer() {
+
+        NavigationView navigationView = findViewById(R.id.nav_view);
+        drawerLayout = findViewById(R.id.drawer_layout);
+        View headerView = navigationView.inflateHeaderView(R.layout.nav_header);
+        TextView name = headerView.findViewById(R.id.header_name);
+        TextView email = headerView.findViewById(R.id.header_mail);
+        name.setText(ApplicationClass.user.getProperty("name").toString());
+        email.setText(ApplicationClass.user.getEmail());
+        navigationView.setNavigationItemSelectedListener(
+                new NavigationView.OnNavigationItemSelectedListener() {
+                    @Override
+                    public boolean onNavigationItemSelected(MenuItem menuItem) {
+                        // set item as selected to persist highlight
+                        menuItem.setChecked(true);
+                        // close drawer when item is tapped
+                        drawerLayout.closeDrawers();
+
+                        // Add code here to update the UI based on the item selected
+                        // For example, swap UI fragments here
+
+                        switch (menuItem.getItemId()) {
+
+                            case R.id.nav_info:
+                                startActivity(new Intent(MainActivity.this, SlidePagerInfoActivity.class));
+                                return true;
+                            case R.id.nav_logout:
+                                Backendless.UserService.logout(new AsyncCallback<Void>() {
+                                    @Override
+                                    public void handleResponse(Void response) {
+
+                                        Toast.makeText(MainActivity.this, "User logged out", Toast.LENGTH_SHORT).show();
+                                        startActivity(new Intent(MainActivity.this, Login.class));
+                                        MainActivity.this.finish();
+                                    }
+
+                                    @Override
+                                    public void handleFault(BackendlessFault fault) {
+
+                                        Toast.makeText(MainActivity.this, "Error: " + fault.getMessage(), Toast.LENGTH_SHORT).show();
+                                    }
+                                });
+                                return true;
+                        }
+                        return true;
+                    }
+                });
     }
 
     @Override
@@ -162,33 +216,18 @@ public class MainActivity extends AppCompatActivity implements ItemSelected {
     }
 
     @Override
+    public void onBackPressed() {
+        //super.onBackPressed();
+        MainActivity.this.finish();
+    }
+
+    @Override
     public boolean onOptionsItemSelected(MenuItem item) {
 
         switch (item.getItemId()) {
             case R.id.action_add:
                 POSITION = 9999;
-
                 startActivity(new Intent(MainActivity.this, NewPet.class));
-                return true;
-            case R.id.action_info:
-                startActivity(new Intent(MainActivity.this, SlidePagerInfoActivity.class));
-                return true;
-            case R.id.action_logout:
-                Backendless.UserService.logout(new AsyncCallback<Void>() {
-                    @Override
-                    public void handleResponse(Void response) {
-
-                        Toast.makeText(MainActivity.this, "User logged out", Toast.LENGTH_SHORT).show();
-                        startActivity(new Intent(MainActivity.this, Login.class));
-                        MainActivity.this.finish();
-                    }
-
-                    @Override
-                    public void handleFault(BackendlessFault fault) {
-
-                        Toast.makeText(MainActivity.this, "Error: " + fault.getMessage(), Toast.LENGTH_SHORT).show();
-                    }
-                });
                 return true;
             default:
                 return super.onOptionsItemSelected(item);
