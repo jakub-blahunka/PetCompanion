@@ -1,11 +1,7 @@
 package org.jaku8ka.petcompanion;
 
-import android.animation.Animator;
-import android.animation.AnimatorListenerAdapter;
 import android.content.Intent;
 import android.support.v4.app.DialogFragment;
-import android.support.v4.app.FragmentManager;
-import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.Menu;
@@ -15,7 +11,6 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.LinearLayout;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -32,12 +27,12 @@ import java.util.Locale;
 
 public class NewPet extends AppCompatActivity {
 
-    TextView tvDateBirth, tvDateParasites, tvDateVaccination;
-    EditText etName, etSpecies, etColor;
-    Spinner sPet, sSex, sParasites, sVaccination;
+    private TextView tvDateBirth, tvDateParasites, tvDateVaccination;
+    private EditText etName, etSpecies, etColor;
+    private Spinner sPet, sSex, sParasites, sVaccination;
 
     private int sexSpinner, petSpinner, vacSpinner, parSpinner;
-    Button btnDateOfBirth, btnDateOfPar, btnDateOfVac;
+    private Button btnDateOfBirth, btnDateOfPar, btnDateOfVac;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -88,7 +83,6 @@ public class NewPet extends AppCompatActivity {
     }
 
     private void initViews() {
-
         tvDateBirth = findViewById(R.id.tvDateBirth);
         tvDateParasites = findViewById(R.id.tvDateParasites);
         tvDateVaccination = findViewById(R.id.tvDateVaccination);

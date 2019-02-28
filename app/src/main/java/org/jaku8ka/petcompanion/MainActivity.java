@@ -220,8 +220,11 @@ public class MainActivity extends AppCompatActivity implements ItemSelected {
 
     @Override
     public void onBackPressed() {
-        //super.onBackPressed();
-        MainActivity.this.finish();
+
+        if(!fragmentManager.findFragmentById(R.id.fragmentDetail).isVisible())
+            MainActivity.this.finish();
+        else
+            super.onBackPressed();
     }
 
     @Override
@@ -231,6 +234,7 @@ public class MainActivity extends AppCompatActivity implements ItemSelected {
             case R.id.action_add:
                 POSITION = 9999;
                 startActivity(new Intent(MainActivity.this, NewPet.class));
+                MainActivity.this.finish();
                 return true;
             case android.R.id.home:
                 if(!drawerLayout.isDrawerOpen(GravityCompat.START))
